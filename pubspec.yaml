@@ -13,6 +13,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  flutter_dotenv: ^3.1.0
+  flutter_translate: ^1.6.0
+  flutter_translate_annotations: ^1.0.1
+  flutter_bloc: ^6.1.1
+  equatable: ^1.2.5
+  dio: ^3.0.10
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +30,4 @@ flutter:
 
   assets:
     - assets/
+    - .env

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/widgets.dart';
+import '../bloc/home/home_bloc.dart';
 
 class Landing extends StatefulWidget {
   const Landing({Key key}) : super(key: key);
@@ -31,12 +33,12 @@ class _LandingState extends State<Landing> {
           fit: BoxFit.cover,
         ),
       ),
-      child: AnimatedOpacity(
-        opacity: opacity,
-        duration: Duration(seconds: 1),
-        child: Stack(
-          children: [
-            Center(
+      child: Stack(
+        children: [
+          AnimatedOpacity(
+            opacity: opacity,
+            duration: Duration(seconds: 1),
+            child: Center(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -56,14 +58,16 @@ class _LandingState extends State<Landing> {
                       textAlign: TextAlign.center,
                     ),
                     CustomRoundButton(
-                      text: 'Dowiedz się więcej',
-                      onTap: () {},
+                      text: 'Find out more',
+                      onTap: () => BlocProvider.of<HomeBloc>(context)
+                          .add(HomeAboutShow()),
                       isActive: true,
                       fontSize: 28,
                       margin: const EdgeInsets.symmetric(vertical: 24),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () => BlocProvider.of<HomeBloc>(context)
+                          .add(HomeAboutShow()),
                       icon: Icon(
                         Icons.arrow_forward,
                         color: Colors.black87,
@@ -74,11 +78,9 @@ class _LandingState extends State<Landing> {
                 ),
               ),
             ),
-            Navbar(
-              activePage: ActivePage.LANDING,
-            )
-          ],
-        ),
+          ),
+          Navbar(activePage: ActivePage.LANDING, isTransparent: true)
+        ],
       ),
     );
   }
