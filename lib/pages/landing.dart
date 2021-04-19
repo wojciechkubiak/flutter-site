@@ -24,6 +24,9 @@ class _LandingState extends State<Landing> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -43,15 +46,25 @@ class _LandingState extends State<Landing> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Wojciech Kubiak",
-                      style: TextStyle(
-                        fontSize: 112,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Disciplina',
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: height < 600 ? 120 : 40,
+                        bottom: 20,
                       ),
-                      textAlign: TextAlign.center,
+                      child: Text(
+                        "Wojciech Kubiak",
+                        style: TextStyle(
+                          fontSize: width < 680
+                              ? 96
+                              : width < 1600
+                                  ? 112
+                                  : 132,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Disciplina',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     Text(
                       "Developer",
@@ -69,13 +82,16 @@ class _LandingState extends State<Landing> {
                       fontSize: 28,
                       margin: const EdgeInsets.symmetric(vertical: 24),
                     ),
-                    IconButton(
-                      onPressed: () => BlocProvider.of<HomeBloc>(context)
-                          .add(HomeAboutShow()),
-                      icon: Icon(
-                        Icons.arrow_forward,
-                        color: Colors.black87,
-                        size: 48,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30.0),
+                      child: IconButton(
+                        onPressed: () => BlocProvider.of<HomeBloc>(context)
+                            .add(HomeAboutShow()),
+                        icon: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black87,
+                          size: 48,
+                        ),
                       ),
                     ),
                   ],

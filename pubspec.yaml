@@ -19,7 +19,8 @@ dependencies:
   flutter_bloc: ^6.1.1
   equatable: ^1.2.5
   dio: ^3.0.10
-
+  url_strategy: ^0.2.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './pages/pages.dart';
+import 'package:url_strategy/url_strategy.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
@@ -10,6 +12,8 @@ import './bloc/home/home_bloc.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
+
+  setPathUrlStrategy();
 
   runApp(MyApp());
 }
