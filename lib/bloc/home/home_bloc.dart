@@ -32,8 +32,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (event is HomeTechnologiesShow) {
       yield* _mapAppHomeTechnologiesToState(event);
     }
-    if (event is HomeSkillsShow) {
-      yield* _mapAppHomeSkillsToState(event);
+    if (event is HomeProjectsShow) {
+      yield* _mapAppHomeProjectsToState(event);
     }
     if (event is HomeContactShow) {
       yield* _mapAppHomeContactToState(event);
@@ -56,8 +56,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     yield HomeTechnologies();
   }
 
-  Stream<HomeState> _mapAppHomeSkillsToState(HomeSkillsShow event) async* {
-    yield HomeSkills();
+  Stream<HomeState> _mapAppHomeProjectsToState(HomeProjectsShow event) async* {
+    yield HomeProjects();
   }
 
   Stream<HomeState> _mapAppHomeContactToState(HomeContactShow event) async* {

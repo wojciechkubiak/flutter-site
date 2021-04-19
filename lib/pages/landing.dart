@@ -17,7 +17,7 @@ class _LandingState extends State<Landing> {
   @override
   initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration(milliseconds: 200), () {
       setState(() => opacity = 1);
     });
   }
@@ -49,12 +49,16 @@ class _LandingState extends State<Landing> {
                         fontSize: 112,
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'Disciplina',
                       ),
                       textAlign: TextAlign.center,
                     ),
                     Text(
                       "Developer",
-                      style: TextStyle(fontSize: 64),
+                      style: TextStyle(
+                        fontSize: 64,
+                        fontFamily: 'Raleway',
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     CustomRoundButton(

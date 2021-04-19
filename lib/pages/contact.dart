@@ -25,12 +25,12 @@ class _ContactState extends State<Contact> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     image: AssetImage('assets/bg1.jpg'),
-      //     fit: BoxFit.cover,
-      //   ),
-      // ),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/bg1.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Stack(
         children: [
           AnimatedOpacity(

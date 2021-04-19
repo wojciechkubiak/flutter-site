@@ -31,3 +31,15 @@ flutter:
   assets:
     - assets/
     - .env
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/raleway/Raleway-Bold.ttf
+        - asset: assets/raleway/Raleway-Regular.ttf
+        - asset: assets/raleway/Raleway-Light.ttf
+    - family: Disciplina
+      fonts:
+        - asset: assets/disciplina/Disciplina.ttf
+    - family: SansPosterBold
+      fonts:
+        - asset: assets/sans-poster-bold/SansPosterBold.ttf

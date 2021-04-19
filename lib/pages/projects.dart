@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
 
-class Skills extends StatefulWidget {
-  const Skills({Key key}) : super(key: key);
+class Projects extends StatefulWidget {
+  const Projects({Key key}) : super(key: key);
 
   @override
-  _SkillsState createState() => _SkillsState();
+  _ProjectsState createState() => _ProjectsState();
 }
 
-class _SkillsState extends State<Skills> {
+class _ProjectsState extends State<Projects> {
   double opacity = 0;
 
   @override
@@ -25,12 +25,12 @@ class _SkillsState extends State<Skills> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     image: AssetImage('assets/bg1.jpg'),
-      //     fit: BoxFit.cover,
-      //   ),
-      // ),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/bg1.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: Stack(
         children: [
           AnimatedOpacity(
@@ -45,7 +45,7 @@ class _SkillsState extends State<Skills> {
               ),
             ),
           ),
-          Navbar(activePage: ActivePage.SKILLS)
+          Navbar(activePage: ActivePage.PROJECTS)
         ],
       ),
     );

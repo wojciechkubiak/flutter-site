@@ -13,7 +13,7 @@ class HomeAboutShow extends HomeEvent {}
 
 class HomeTechnologiesShow extends HomeEvent {}
 
-class HomeSkillsShow extends HomeEvent {}
+class HomeProjectsShow extends HomeEvent {}
 
 class HomeContactShow extends HomeEvent {}
 

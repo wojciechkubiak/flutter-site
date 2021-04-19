@@ -13,6 +13,6 @@ class HomeAbout extends HomeState {}
 
 class HomeTechnologies extends HomeState {}
 
-class HomeSkills extends HomeState {}
+class HomeProjects extends HomeState {}
 
 class HomeContact extends HomeState {}
