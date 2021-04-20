@@ -29,6 +29,8 @@ class _AboutState extends State<About> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
+    bool isHDRady = width <= 1600;
+
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -44,12 +46,13 @@ class _AboutState extends State<About> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: height < 600 || width < 600 ? 120 : 70,
-                          bottom: 20),
+                        top: height < 600 || width < 600 ? 120 : 70,
+                        bottom: 20,
+                      ),
                       child: Text(
                         'Find out more',
                         style: TextStyle(
-                          fontSize: 62,
+                          fontSize: isHDRady ? 56 : 72,
                           color: Colors.black87,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.w600,
@@ -61,9 +64,13 @@ class _AboutState extends State<About> {
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          width: 800,
+                          width: isHDRady ? 800 : 600,
                           padding: EdgeInsets.only(
-                              left: 40, right: 40, top: 40, bottom: 60),
+                            left: 40,
+                            right: 40,
+                            top: 40,
+                            bottom: 60,
+                          ),
                           child: RichText(
                             text: TextSpan(
                               text:
@@ -73,7 +80,7 @@ After high school fate wanted me to start study programming. Of course the first
 Currently I accept various types of orders, I am working full time job as a programmer - Frontend Developer, which allows me to earn a living while doing something I feel strong with, what makes my eyes shine. 
 If you want to hire me or give me an assignment, so I can share my passion with you, fill in the form at the end of the website or just go into one of my social medias and message me. If you want to get to know me better, check out my ''',
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: isHDRady ? 18 : 22,
                                 color: Colors.black87,
                                 fontFamily: 'Raleway',
                                 fontWeight: FontWeight.w400,
@@ -104,7 +111,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                                 onTap: () => BlocProvider.of<HomeBloc>(context)
                                     .add(HomeTechnologiesShow()),
                                 isActive: true,
-                                fontSize: 32,
+                                fontSize: isHDRady ? 26 : 32,
                               ),
                               Visibility(
                                 visible: height > 600,
@@ -113,7 +120,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                                   child: Text(
                                     'Check out what my technologies are and what I feel the best with',
                                     style: TextStyle(
-                                      fontSize: 42,
+                                      fontSize: isHDRady ? 32 : 42,
                                       height: 1.5,
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.w600,
@@ -128,7 +135,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                                 icon: Icon(
                                   Icons.arrow_forward,
                                   color: Color(0xff262626),
-                                  size: 48,
+                                  size: isHDRady ? 38 : 48,
                                 ),
                               ),
                             ],

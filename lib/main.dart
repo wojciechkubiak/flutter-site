@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import './pages/pages.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import './pages/pages.dart';
-import './config/colors.dart';
 import './services/home_service.dart';
 import './bloc/home/home_bloc.dart';
 
 void main() {
-  Bloc.observer = SimpleBlocObserver();
+  setUrlStrategy(null);
 
-  setPathUrlStrategy();
+  Bloc.observer = SimpleBlocObserver();
 
   runApp(MyApp());
 }
