@@ -64,7 +64,7 @@ class _AboutState extends State<About> {
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          width: isHDRady ? 800 : 600,
+                          width: isHDRady ? 600 : 800,
                           padding: EdgeInsets.only(
                             left: 40,
                             right: 40,
