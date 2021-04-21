@@ -55,7 +55,7 @@ class _LandingState extends State<Landing> {
                         "Wojciech Kubiak",
                         style: TextStyle(
                           fontSize: width < 680
-                              ? 96
+                              ? 64
                               : width < 1600
                                   ? 112
                                   : 132,
@@ -69,7 +69,7 @@ class _LandingState extends State<Landing> {
                     Text(
                       "Developer",
                       style: TextStyle(
-                        fontSize: 64,
+                        fontSize: width < 680 ? 48 : 64,
                         fontFamily: 'Raleway',
                       ),
                       textAlign: TextAlign.center,

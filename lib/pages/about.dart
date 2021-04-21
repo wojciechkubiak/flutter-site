@@ -46,13 +46,17 @@ class _AboutState extends State<About> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                        top: height < 600 || width < 600 ? 120 : 70,
+                        top: height < 600 || width < 600 ? 120 : 80,
                         bottom: 20,
                       ),
                       child: Text(
                         'Find out more',
                         style: TextStyle(
-                          fontSize: isHDRady ? 56 : 72,
+                          fontSize: !isHDRady
+                              ? 72
+                              : width < 600
+                                  ? 42
+                                  : 56,
                           color: Colors.black87,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.w600,
