@@ -43,10 +43,7 @@ class _NavbarState extends State<Navbar> {
             height: 70,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: !widget.isTransparent ||
-                      isHeightMinimal ||
-                      isCompact ||
-                      isDropdownShown
+              color: !widget.isTransparent || isHeightMinimal || isDropdownShown
                   ? Color(0xFF262626)
                   : Colors.transparent,
             ),
@@ -54,9 +51,8 @@ class _NavbarState extends State<Navbar> {
               onTap: () => setState(() => isDropdownShown = !isDropdownShown),
               child: Icon(
                 isDropdownShown ? Icons.close : Icons.menu,
-                color: !widget.isTransparent ||
+                color: (!widget.isTransparent && isCompact) ||
                         isHeightMinimal ||
-                        isCompact ||
                         isDropdownShown
                     ? Colors.white
                     : Colors.black87,
@@ -71,10 +67,6 @@ class _NavbarState extends State<Navbar> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Color(0xFF262626),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(45),
-                  bottomRight: Radius.circular(45),
-                ),
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 5,
@@ -91,30 +83,36 @@ class _NavbarState extends State<Navbar> {
                     onTap: () => BlocProvider.of<HomeBloc>(context)
                         .add(HomeMainPageShow()),
                     isActive: widget.activePage == ActivePage.LANDING,
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                    width: 260,
                   ),
                   CustomRoundButton(
                     text: translations[ActivePage.ABOUT],
                     onTap: () =>
                         BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
                     isActive: widget.activePage == ActivePage.ABOUT,
+                    width: 260,
                   ),
                   CustomRoundButton(
                     text: translations[ActivePage.TECHNOLOGIES],
                     onTap: () => BlocProvider.of<HomeBloc>(context)
                         .add(HomeTechnologiesShow()),
                     isActive: widget.activePage == ActivePage.TECHNOLOGIES,
+                    width: 260,
                   ),
                   CustomRoundButton(
                     text: translations[ActivePage.PROJECTS],
                     onTap: () => BlocProvider.of<HomeBloc>(context)
                         .add(HomeProjectsShow()),
                     isActive: widget.activePage == ActivePage.PROJECTS,
+                    width: 260,
                   ),
                   CustomRoundButton(
                     text: translations[ActivePage.CONTACT],
                     onTap: () => BlocProvider.of<HomeBloc>(context)
                         .add(HomeContactShow()),
                     isActive: widget.activePage == ActivePage.CONTACT,
+                    width: 260,
                   ),
                 ],
               ),

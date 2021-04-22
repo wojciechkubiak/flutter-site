@@ -5,6 +5,7 @@ class CustomRoundButton extends StatelessWidget {
   final Function onTap;
   final bool isActive;
   final double fontSize;
+  final double width;
   final EdgeInsets margin;
   final EdgeInsets padding;
   final bool isTextBlack;
@@ -15,6 +16,7 @@ class CustomRoundButton extends StatelessWidget {
     @required this.onTap,
     @required this.isActive,
     this.fontSize = 20,
+    this.width,
     this.margin = const EdgeInsets.symmetric(horizontal: 16),
     this.padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
     this.isTextBlack = false,
@@ -29,6 +31,7 @@ class CustomRoundButton extends StatelessWidget {
           color: isActive ? Color(0xFF388E3C) : Colors.transparent,
           borderRadius: BorderRadius.all(Radius.circular(40)),
         ),
+        width: width,
         margin: margin,
         padding: padding,
         child: Text(
@@ -39,6 +42,7 @@ class CustomRoundButton extends StatelessWidget {
             fontWeight: FontWeight.w400,
             color: isTextBlack ? Colors.black87 : Colors.white,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     );
