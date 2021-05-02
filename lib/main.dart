@@ -58,8 +58,8 @@ class _MyAppState extends State<MyApp> {
                     if (state is HomeAbout) return About();
                     if (state is HomeTechnologies) return Technologies();
                     if (state is HomeProjects) return Projects();
-                    if (state is HomeContact) return Contact();
-                    return Text("Siemka");
+                    // if (state is HomeContact) return Contact();
+                    return Container();
                   },
                 )),
           ),

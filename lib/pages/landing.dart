@@ -15,7 +15,7 @@ class Landing extends StatelessWidget {
       activePage: ActivePage.LANDING,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/bg1.jpg'),
+          image: AssetImage('assets/349801.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -38,14 +38,15 @@ class Landing extends StatelessWidget {
           child: Text(
             "Wojciech Kubiak",
             style: TextStyle(
+              height: 1.3,
               fontSize: width < 680
-                  ? 64
+                  ? 44
                   : width < 1600
                       ? 112
-                      : 132,
-              color: Colors.black87,
+                      : 96,
+              color: Colors.white70,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Disciplina',
+              fontFamily: 'Rucas',
             ),
             textAlign: TextAlign.center,
           ),
@@ -72,7 +73,7 @@ class Landing extends StatelessWidget {
                 BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
             icon: Icon(
               Icons.arrow_forward,
-              color: Colors.black87,
+              color: Colors.white,
               size: 48,
             ),
           ),

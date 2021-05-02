@@ -51,11 +51,11 @@ class _NavbarState extends State<Navbar> {
               onTap: () => setState(() => isDropdownShown = !isDropdownShown),
               child: Icon(
                 isDropdownShown ? Icons.close : Icons.menu,
-                color: (!widget.isTransparent && isCompact) ||
-                        isHeightMinimal ||
-                        isDropdownShown
-                    ? Colors.white
-                    : Colors.black87,
+                color: widget.isTransparent && !isDropdownShown
+                    ? Colors.black87
+                    : isDropdownShown || !widget.isTransparent
+                        ? Colors.white
+                        : Colors.black87,
                 size: 46,
               ),
             ),
@@ -107,13 +107,6 @@ class _NavbarState extends State<Navbar> {
                     isActive: widget.activePage == ActivePage.PROJECTS,
                     width: 260,
                   ),
-                  CustomRoundButton(
-                    text: translations[ActivePage.CONTACT],
-                    onTap: () => BlocProvider.of<HomeBloc>(context)
-                        .add(HomeContactShow()),
-                    isActive: widget.activePage == ActivePage.CONTACT,
-                    width: 260,
-                  ),
                 ],
               ),
             )
@@ -158,13 +151,6 @@ class _NavbarState extends State<Navbar> {
             onTap: () =>
                 BlocProvider.of<HomeBloc>(context).add(HomeProjectsShow()),
             isActive: widget.activePage == ActivePage.PROJECTS,
-            isTextBlack: widget.activePage == ActivePage.LANDING,
-          ),
-          CustomRoundButton(
-            text: translations[ActivePage.CONTACT],
-            onTap: () =>
-                BlocProvider.of<HomeBloc>(context).add(HomeContactShow()),
-            isActive: widget.activePage == ActivePage.CONTACT,
             isTextBlack: widget.activePage == ActivePage.LANDING,
           ),
         ],

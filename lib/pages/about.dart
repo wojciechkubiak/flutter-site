@@ -19,7 +19,9 @@ class _AboutState extends State<About> {
   Widget build(BuildContext context) {
     return PageBuilder(
       child: _body(context),
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
       activePage: ActivePage.ABOUT,
     );
   }
@@ -45,7 +47,7 @@ class _AboutState extends State<About> {
                   : width < 600
                       ? 42
                       : 56,
-              color: Colors.black87,
+              color: Colors.orangeAccent,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w600,
             ),
@@ -70,7 +72,7 @@ class _AboutState extends State<About> {
 I used to draw a lot in my childhood - and I am doing that until now. Later, in high school I was creating building designs. There was always that one particle inside of me which makes me enjoy creating things. 
 After high school fate wanted me to start study programming. Of course the first thing that caught my eye was web and mobile development. From that first weeks - even days - all I'm doing is thinking about what fancy application I could do, that would be nice looking and functional. 
 Currently I accept various types of orders, I am working full time job as a programmer - Frontend Developer, which allows me to earn a living while doing something I feel strong with, what makes my eyes shine. 
-If you want to hire me or give me an assignment, so I can share my passion with you, fill in the form at the end of the website or just go into one of my social medias and message me. If you want to get to know me better, check out my ''',
+If you want to hire me or give me an assignment, so I can share my passion with you, fill in the form at the end of the website or just go into one of my social medias and message me.''',
                   style: TextStyle(
                     fontSize: isHDRady ? 18 : 22,
                     color: Colors.black87,
@@ -78,18 +80,6 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                     fontWeight: FontWeight.w400,
                     height: 1.2,
                   ),
-                  children: [
-                    TextSpan(
-                      text: 'resume',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => html.window.open(
-                              '/assets/cven.pdf',
-                              'text',
-                            ),
-                    ),
-                    TextSpan(text: '.')
-                  ],
                 ),
               ),
             ),
@@ -125,8 +115,8 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                         .add(HomeTechnologiesShow()),
                     icon: Icon(
                       Icons.arrow_forward,
-                      color: Color(0xff262626),
-                      size: isHDRady ? 38 : 48,
+                      color: Colors.orangeAccent,
+                      size: 48,
                     ),
                   ),
                 ],

@@ -44,3 +44,6 @@ flutter:
     - family: SansPosterBold
       fonts:
         - asset: assets/sans-poster-bold/SansPosterBold.ttf
+    - family: Rucas
+      fonts:
+        - asset: assets/rucas/RUCAS.ttf
