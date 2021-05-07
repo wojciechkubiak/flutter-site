@@ -46,9 +46,7 @@ class _MyAppState extends State<MyApp> {
         ],
         child: MaterialApp(
           title: 'Wojciech Kubiak | Portfolio',
-          theme: ThemeData(
-            primarySwatch: Colors.green,
-          ),
+          theme: ThemeData(primarySwatch: Colors.orange),
           home: Scaffold(
             body: Theme(
                 data: Theme.of(context).copyWith(),

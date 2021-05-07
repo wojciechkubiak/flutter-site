@@ -64,7 +64,9 @@ class _PageBuilderState extends State<PageBuilder> {
                   Container(
                     width: isHDReady ? 600 : 800,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: width < 600
+                          ? BorderRadius.zero
+                          : BorderRadius.all(Radius.circular(10)),
                       color: widget.isTransparent
                           ? Colors.white
                           : Color(0xFF262626),
@@ -74,7 +76,9 @@ class _PageBuilderState extends State<PageBuilder> {
                       vertical: 32,
                     ),
                     margin: EdgeInsets.only(
-                        bottom: 96, right: width >= 600 ? 12 : 0),
+                      bottom: width >= 600 ? 96 : 0,
+                      right: width >= 600 ? 12 : 0,
+                    ),
                     child: Column(
                       mainAxisSize:
                           width < 600 ? MainAxisSize.max : MainAxisSize.min,
@@ -125,10 +129,11 @@ class _PageBuilderState extends State<PageBuilder> {
                 ],
               ),
             ),
-          Navbar(
-            activePage: widget.activePage,
-            isTransparent: widget.isTransparent,
-          ),
+          if (!isMessageFieldVisible && width > 600)
+            Navbar(
+              activePage: widget.activePage,
+              isTransparent: widget.isTransparent,
+            ),
           Align(
             alignment: Alignment.bottomRight,
             child: GestureDetector(
@@ -146,7 +151,7 @@ class _PageBuilderState extends State<PageBuilder> {
                   horizontal: 16,
                 ),
                 child: Icon(
-                  Icons.message,
+                  !isMessageFieldVisible ? Icons.message : Icons.close,
                   color: Colors.orangeAccent,
                   size: 48,
                 ),
