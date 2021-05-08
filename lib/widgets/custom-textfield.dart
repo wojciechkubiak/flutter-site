@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatelessWidget {
   final String hint;
+  final int minLines;
   final int maxLines;
   final TextInputType keyboardType;
+  final TextInputAction textInputAction;
   final bool isTransparent;
+  final Function onSubmitted;
+  final Function onChange;
+  final Function onEditingComplete;
 
-  const CustomTextfield(
-      {Key key,
-      this.isTransparent = false,
-      this.hint,
-      this.maxLines = 1,
-      this.keyboardType})
-      : super(key: key);
+  const CustomTextfield({
+    Key key,
+    this.isTransparent = false,
+    this.hint,
+    this.minLines = 1,
+    this.maxLines = 1,
+    this.keyboardType,
+    this.textInputAction,
+    this.onSubmitted,
+    this.onChange,
+    this.onEditingComplete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +30,14 @@ class CustomTextfield extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 24),
       child: TextField(
         cursorColor: Colors.orange,
+        minLines: minLines,
         maxLines: maxLines,
         keyboardType: keyboardType,
         textAlign: TextAlign.center,
-        textInputAction: TextInputAction.done,
+        textInputAction: textInputAction,
+        onSubmitted: onSubmitted,
+        onChanged: onChange,
+        onEditingComplete: onEditingComplete,
         style: TextStyle(
           fontSize: 20,
           color: isTransparent ? Colors.black87 : Colors.white54,

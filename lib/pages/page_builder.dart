@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../widgets/widgets.dart';
-import '../bloc/home/home_bloc.dart';
 
 class PageBuilder extends StatefulWidget {
   final Widget child;
@@ -25,6 +27,10 @@ class PageBuilder extends StatefulWidget {
 class _PageBuilderState extends State<PageBuilder> {
   double opacity = 0;
   bool isMessageFieldVisible = false;
+  String mail = '';
+  String subject = '';
+  String content = '';
+  bool isIconVisible = true;
 
   @override
   initState() {
@@ -34,12 +40,49 @@ class _PageBuilderState extends State<PageBuilder> {
     });
   }
 
+  //TODO: Handle sending email on mobile
+  Future<void> _sendMail() async {
+    setState(() => isIconVisible = false);
+    try {
+      final response = await http.post(
+        Uri.http('portolio-email-sender.herokuapp.com', ''),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'mail': {
+            'mail': mail,
+            'subject': subject,
+            'content': content,
+          }
+        }),
+      );
+      if (response.statusCode == 200) {
+        Future.delayed(
+          Duration(milliseconds: 500),
+          () => setState(
+            () {
+              isMessageFieldVisible = false;
+              isIconVisible = true;
+              mail = subject = content = '';
+            },
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() => isIconVisible = true);
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    final node = FocusScope.of(context);
+
     double width = MediaQuery.of(context).size.width;
 
     bool isHDReady = width <= 1600;
+    bool isFilled = mail.isNotEmpty && subject.isNotEmpty && content.isNotEmpty;
 
     return Container(
       width: double.infinity,
@@ -109,28 +152,54 @@ class _PageBuilderState extends State<PageBuilder> {
                           hint: 'Email',
                           keyboardType: TextInputType.text,
                           isTransparent: widget.isTransparent,
+                          textInputAction: TextInputAction.next,
+                          onChange: (value) => setState(() => mail = value),
+                          onEditingComplete: () => node.nextFocus(),
                         ),
                         CustomTextfield(
                           hint: 'Subject',
                           keyboardType: TextInputType.text,
                           isTransparent: widget.isTransparent,
+                          textInputAction: TextInputAction.next,
+                          onChange: (value) => setState(() => subject = value),
+                          onEditingComplete: () => node.nextFocus(),
                         ),
                         CustomTextfield(
                           hint: 'Message',
-                          maxLines: isHDReady ? 4 : 8,
-                          keyboardType: TextInputType.multiline,
+                          minLines: 5,
+                          maxLines: 5,
+                          keyboardType: TextInputType.text,
                           isTransparent: widget.isTransparent,
+                          textInputAction: TextInputAction.done,
+                          onChange: (value) => setState(() => content = value),
+                          onEditingComplete: () => node.unfocus(),
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.send,
-                            color: widget.isTransparent
-                                ? Colors.black87
-                                : Colors.white,
-                            size: 32,
+                        if (isIconVisible)
+                          SizedBox(
+                            height: 60,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.send,
+                                color: widget.isTransparent
+                                    ? Colors.black87
+                                    : Colors.white,
+                                size: 32,
+                              ),
+                              onPressed: () {
+                                if (isFilled) _sendMail();
+                              },
+                            ),
+                          )
+                        else
+                          SizedBox(
+                            height: 60,
+                            child: SpinKitFadingCube(
+                              color: widget.isTransparent
+                                  ? Colors.black87
+                                  : Colors.white,
+                              size: 32,
+                            ),
                           ),
-                          onPressed: () {},
-                        )
                       ],
                     ),
                   ),
