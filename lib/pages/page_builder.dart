@@ -40,12 +40,11 @@ class _PageBuilderState extends State<PageBuilder> {
     });
   }
 
-  //TODO: Handle sending email on mobile
   Future<void> _sendMail() async {
     setState(() => isIconVisible = false);
     try {
       final response = await http.post(
-        Uri.http('portolio-email-sender.herokuapp.com', ''),
+        Uri.https('portolio-email-sender.herokuapp.com', ''),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
