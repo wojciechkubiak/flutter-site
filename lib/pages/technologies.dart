@@ -128,7 +128,7 @@ class _TechnologiesState extends State<Technologies> {
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w600,
             ),
-            textAlign: width < 600 ? TextAlign.justify : TextAlign.center,
+            textAlign: TextAlign.center,
           ),
         ),
         Center(
@@ -161,10 +161,10 @@ class _TechnologiesState extends State<Technologies> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            blurRadius: 5,
+            blurRadius: 3,
             spreadRadius: 0,
-            offset: Offset(0, 5),
-            color: Colors.black54,
+            offset: Offset(0, 3),
+            color: Colors.black45,
           )
         ],
       ),
@@ -179,10 +179,10 @@ class _TechnologiesState extends State<Technologies> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      Colors.orangeAccent.withOpacity(1),
-                      BlendMode.color,
-                    ),
+                    // colorFilter: ColorFilter.mode(
+                    //   Colors.orangeAccent.withOpacity(0.7),
+                    //   BlendMode.color,
+                    // ),
                     image: ExactAssetImage(background),
                   ),
                 ),

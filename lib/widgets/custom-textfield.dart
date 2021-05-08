@@ -23,6 +23,7 @@ class CustomTextfield extends StatelessWidget {
         maxLines: maxLines,
         keyboardType: keyboardType,
         textAlign: TextAlign.center,
+        textInputAction: TextInputAction.done,
         style: TextStyle(
           fontSize: 20,
           color: isTransparent ? Colors.black87 : Colors.white54,

@@ -70,6 +70,14 @@ class _PageBuilderState extends State<PageBuilder> {
                       color: widget.isTransparent
                           ? Colors.white
                           : Color(0xFF262626),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 3,
+                          spreadRadius: 1,
+                          offset: Offset(0, 3),
+                          color: Colors.black45,
+                        )
+                      ],
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: isHDReady ? 24 : 64,
@@ -129,11 +137,10 @@ class _PageBuilderState extends State<PageBuilder> {
                 ],
               ),
             ),
-          if (!isMessageFieldVisible && width > 600)
-            Navbar(
-              activePage: widget.activePage,
-              isTransparent: widget.isTransparent,
-            ),
+          Navbar(
+            activePage: widget.activePage,
+            isTransparent: widget.isTransparent,
+          ),
           Align(
             alignment: Alignment.bottomRight,
             child: GestureDetector(
