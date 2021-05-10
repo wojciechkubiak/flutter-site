@@ -115,43 +115,49 @@ class _NavbarState extends State<Navbar> {
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.all(12),
       width: double.infinity,
       height: 70,
       decoration: BoxDecoration(
         color: widget.isTransparent ? Colors.transparent : Color(0xFF262626),
       ),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        clipBehavior: Clip.none,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CustomRoundButton(
-            text: translations[ActivePage.LANDING],
-            onTap: () =>
-                BlocProvider.of<HomeBloc>(context).add(HomeMainPageShow()),
-            isActive: widget.activePage == ActivePage.LANDING,
-            isTextBlack: false,
+          Image.asset(
+            'assets/WK.png',
           ),
-          CustomRoundButton(
-            text: translations[ActivePage.ABOUT],
-            onTap: () =>
-                BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
-            isActive: widget.activePage == ActivePage.ABOUT,
-            isTextBlack: widget.activePage == ActivePage.LANDING,
-          ),
-          CustomRoundButton(
-            text: translations[ActivePage.TECHNOLOGIES],
-            onTap: () =>
-                BlocProvider.of<HomeBloc>(context).add(HomeTechnologiesShow()),
-            isActive: widget.activePage == ActivePage.TECHNOLOGIES,
-            isTextBlack: widget.activePage == ActivePage.LANDING,
-          ),
-          CustomRoundButton(
-            text: translations[ActivePage.PROJECTS],
-            onTap: () =>
-                BlocProvider.of<HomeBloc>(context).add(HomeProjectsShow()),
-            isActive: widget.activePage == ActivePage.PROJECTS,
-            isTextBlack: widget.activePage == ActivePage.LANDING,
+          Row(
+            children: [
+              CustomRoundButton(
+                text: translations[ActivePage.LANDING],
+                onTap: () =>
+                    BlocProvider.of<HomeBloc>(context).add(HomeMainPageShow()),
+                isActive: widget.activePage == ActivePage.LANDING,
+                isTextBlack: false,
+              ),
+              CustomRoundButton(
+                text: translations[ActivePage.ABOUT],
+                onTap: () =>
+                    BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
+                isActive: widget.activePage == ActivePage.ABOUT,
+                isTextBlack: widget.activePage == ActivePage.LANDING,
+              ),
+              CustomRoundButton(
+                text: translations[ActivePage.TECHNOLOGIES],
+                onTap: () => BlocProvider.of<HomeBloc>(context)
+                    .add(HomeTechnologiesShow()),
+                isActive: widget.activePage == ActivePage.TECHNOLOGIES,
+                isTextBlack: widget.activePage == ActivePage.LANDING,
+              ),
+              CustomRoundButton(
+                text: translations[ActivePage.PROJECTS],
+                onTap: () =>
+                    BlocProvider.of<HomeBloc>(context).add(HomeProjectsShow()),
+                isActive: widget.activePage == ActivePage.PROJECTS,
+                isTextBlack: widget.activePage == ActivePage.LANDING,
+              ),
+            ],
           ),
         ],
       ),

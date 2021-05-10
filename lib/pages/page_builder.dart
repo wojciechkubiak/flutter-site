@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/widgets.dart';
 
@@ -110,7 +111,7 @@ class _PageBuilderState extends State<PageBuilder> {
                           ? BorderRadius.zero
                           : BorderRadius.all(Radius.circular(10)),
                       color: widget.isTransparent
-                          ? Colors.white
+                          ? Color(0xFFF9F9F9)
                           : Color(0xFF262626),
                       boxShadow: [
                         BoxShadow(
@@ -217,18 +218,16 @@ class _PageBuilderState extends State<PageBuilder> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color:
-                      widget.isTransparent ? Colors.white : Color(0xFF262626),
                 ),
                 margin: const EdgeInsets.all(12.0),
                 padding: const EdgeInsets.symmetric(
                   vertical: 8,
                   horizontal: 16,
                 ),
-                child: Icon(
-                  !isMessageFieldVisible ? Icons.message : Icons.close,
-                  color: Colors.orangeAccent,
-                  size: 48,
+                child: FaIcon(
+                  FontAwesomeIcons.solidComment,
+                  size: 52,
+                  color: Colors.grey[700],
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/pages/pages.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/widgets.dart';
 import '../bloc/home/home_bloc.dart';
@@ -15,7 +16,7 @@ class Landing extends StatelessWidget {
       activePage: ActivePage.LANDING,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/349801.jpg'),
+          image: AssetImage('assets/bg7b.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -44,7 +45,7 @@ class Landing extends StatelessWidget {
                   : width < 1600
                       ? 112
                       : 96,
-              color: Colors.white70,
+              color: Colors.grey[700],
               fontWeight: FontWeight.bold,
               fontFamily: 'Rucas',
             ),
@@ -56,6 +57,7 @@ class Landing extends StatelessWidget {
           style: TextStyle(
             fontSize: width < 680 ? 48 : 64,
             fontFamily: 'Raleway',
+            color: Colors.grey[800],
           ),
           textAlign: TextAlign.center,
         ),
@@ -67,18 +69,52 @@ class Landing extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 24),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 30.0),
-          child: IconButton(
-            onPressed: () =>
-                BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
-            icon: Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-              size: 48,
-            ),
+          padding: EdgeInsets.symmetric(vertical: width > 600 ? 72.0 : 52.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _socialImage(
+                icon: FontAwesomeIcons.linkedin,
+                context: context,
+              ),
+              _socialImage(
+                icon: FontAwesomeIcons.githubSquare,
+                context: context,
+              ),
+              _socialImage(
+                icon: FontAwesomeIcons.facebookSquare,
+                context: context,
+              ),
+              _socialImage(
+                icon: FontAwesomeIcons.instagramSquare,
+                context: context,
+              ),
+            ],
           ),
-        ),
+        )
       ],
+    );
+  }
+
+  Widget _socialImage({IconData icon, BuildContext context}) {
+    double width = MediaQuery.of(context).size.width;
+
+    return Container(
+      padding: EdgeInsets.all(18),
+      margin: EdgeInsets.symmetric(horizontal: width > 600 ? 12 : 4),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: new Border.all(
+          color: Colors.grey[800],
+          width: 3.0,
+        ),
+      ),
+      child: Center(
+          child: FaIcon(
+        icon,
+        color: Colors.grey[800],
+        size: 32,
+      )),
     );
   }
 }

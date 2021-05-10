@@ -28,7 +28,7 @@ class CustomRoundButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isActive ? Colors.orangeAccent : Colors.transparent,
+          color: isActive ? Color(0xFFb9bcbe) : Colors.transparent,
           borderRadius: BorderRadius.all(Radius.circular(40)),
         ),
         width: width,
