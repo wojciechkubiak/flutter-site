@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysite/widgets/website-logo.dart';
 
 import './custom-round-button.dart';
 import '../bloc/home/home_bloc.dart';
-import '../config/colors.dart';
 
 enum ActivePage { LANDING, ABOUT, TECHNOLOGIES, PROJECTS, CONTACT }
 
@@ -124,9 +124,7 @@ class _NavbarState extends State<Navbar> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            'assets/WK.png',
-          ),
+          WebsiteLogo(),
           Row(
             children: [
               CustomRoundButton(

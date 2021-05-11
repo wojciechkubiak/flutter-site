@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomRoundButton extends StatelessWidget {
+class CustomRoundButton extends StatefulWidget {
   final String text;
   final Function onTap;
   final bool isActive;
@@ -23,26 +23,48 @@ class CustomRoundButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CustomRoundButtonState createState() => _CustomRoundButtonState();
+}
+
+class _CustomRoundButtonState extends State<CustomRoundButton> {
+  bool hover = false;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: isActive ? Color(0xFFb9bcbe) : Colors.transparent,
-          borderRadius: BorderRadius.all(Radius.circular(40)),
-        ),
-        width: width,
-        margin: margin,
-        padding: padding,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontFamily: 'Raleway',
-            fontWeight: FontWeight.w400,
-            color: isTextBlack ? Colors.black87 : Colors.white,
+      onTap: widget.onTap,
+      child: MouseRegion(
+        onEnter: (_) => setState(() => hover = true),
+        onExit: (_) => setState(() => hover = false),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            color: widget.isActive
+                ? hover
+                    ? Color(0xFF424242)
+                    : Color(0xFF545454)
+                : Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(40)),
+            border: new Border.all(
+              color: hover && !widget.isActive
+                  ? Color(0xFF424242)
+                  : Colors.transparent,
+              width: 1.0,
+            ),
           ),
-          textAlign: TextAlign.center,
+          width: widget.width,
+          margin: widget.margin,
+          padding: widget.padding,
+          child: Text(
+            widget.text,
+            style: TextStyle(
+              fontSize: widget.fontSize,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w400,
+              color: widget.isTextBlack ? Colors.black87 : Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

@@ -100,19 +100,23 @@ class _TechnologiesState extends State<Technologies> {
 
   Widget _body() {
     double width = MediaQuery.of(context).size.width;
+    bool isHDRady = width <= 1600;
 
     return Column(
       crossAxisAlignment:
           width < 600 ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
         Container(
-          margin:
-              EdgeInsets.only(left: width < 600 ? 0 : 64, top: 100, bottom: 20),
+          margin: EdgeInsets.only(
+            left: width < 600 ? 0 : 64,
+            top: 100,
+            bottom: 20,
+          ),
           child: Text(
             'My skills',
             style: TextStyle(
-              fontSize: 72,
-              color: Colors.orangeAccent,
+              fontSize: !isHDRady ? 72 : 56,
+              color: Colors.grey[800],
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w600,
             ),
@@ -125,6 +129,7 @@ class _TechnologiesState extends State<Technologies> {
             style: TextStyle(
               fontSize: 42,
               height: 1.5,
+              color: Colors.grey[700],
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w600,
             ),

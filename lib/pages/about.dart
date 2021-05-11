@@ -20,7 +20,7 @@ class _AboutState extends State<About> {
     return PageBuilder(
       child: _body(context),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF9F9F9),
       ),
       activePage: ActivePage.ABOUT,
     );
@@ -42,12 +42,8 @@ class _AboutState extends State<About> {
           child: Text(
             'Find out more',
             style: TextStyle(
-              fontSize: !isHDRady
-                  ? 72
-                  : width < 600
-                      ? 42
-                      : 56,
-              color: Colors.orangeAccent,
+              fontSize: !isHDRady ? 72 : 56,
+              color: Colors.grey[800],
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w600,
             ),
@@ -115,7 +111,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                         .add(HomeTechnologiesShow()),
                     icon: Icon(
                       Icons.arrow_forward,
-                      color: Colors.orangeAccent,
+                      color: Colors.grey[800],
                       size: 48,
                     ),
                   ),

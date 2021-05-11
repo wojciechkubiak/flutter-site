@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mysite/pages/pages.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/widgets.dart';
 import '../bloc/home/home_bloc.dart';
+import '../pages/pages.dart';
 
 class Landing extends StatelessWidget {
   const Landing({Key key}) : super(key: key);
@@ -43,7 +43,7 @@ class Landing extends StatelessWidget {
               fontSize: width < 680
                   ? 44
                   : width < 1600
-                      ? 112
+                      ? 72
                       : 96,
               color: Colors.grey[700],
               fontWeight: FontWeight.bold,
@@ -73,48 +73,26 @@ class Landing extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _socialImage(
+              SocialIcon(
                 icon: FontAwesomeIcons.linkedin,
-                context: context,
+                url: 'https://www.linkedin.com/in/wojciechkubiakin/',
               ),
-              _socialImage(
+              SocialIcon(
                 icon: FontAwesomeIcons.githubSquare,
-                context: context,
+                url: 'https://www.github.com/wojciechkubiak',
               ),
-              _socialImage(
+              SocialIcon(
                 icon: FontAwesomeIcons.facebookSquare,
-                context: context,
+                url: 'https://www.facebook.com/wojciechkubiakfb',
               ),
-              _socialImage(
+              SocialIcon(
                 icon: FontAwesomeIcons.instagramSquare,
-                context: context,
+                url: 'https://instagram.com/biaqe',
               ),
             ],
           ),
         )
       ],
-    );
-  }
-
-  Widget _socialImage({IconData icon, BuildContext context}) {
-    double width = MediaQuery.of(context).size.width;
-
-    return Container(
-      padding: EdgeInsets.all(18),
-      margin: EdgeInsets.symmetric(horizontal: width > 600 ? 12 : 4),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: new Border.all(
-          color: Colors.grey[800],
-          width: 3.0,
-        ),
-      ),
-      child: Center(
-          child: FaIcon(
-        icon,
-        color: Colors.grey[800],
-        size: 32,
-      )),
     );
   }
 }

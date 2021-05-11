@@ -32,6 +32,7 @@ class _PageBuilderState extends State<PageBuilder> {
   String subject = '';
   String content = '';
   bool isIconVisible = true;
+  bool hover = false;
 
   @override
   initState() {
@@ -110,15 +111,13 @@ class _PageBuilderState extends State<PageBuilder> {
                       borderRadius: width < 600
                           ? BorderRadius.zero
                           : BorderRadius.all(Radius.circular(10)),
-                      color: widget.isTransparent
-                          ? Color(0xFFF9F9F9)
-                          : Color(0xFF262626),
+                      color: Color(0xFFF9F9F9),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 3,
+                          blurRadius: 2,
                           spreadRadius: 1,
-                          offset: Offset(0, 3),
-                          color: Colors.black45,
+                          offset: Offset(0, 2),
+                          color: Colors.black26,
                         )
                       ],
                     ),
@@ -143,7 +142,7 @@ class _PageBuilderState extends State<PageBuilder> {
                                 : width < 600
                                     ? 36
                                     : 42,
-                            color: Colors.orangeAccent,
+                            color: Colors.grey[800],
                             fontFamily: 'Raleway',
                             fontWeight: FontWeight.w600,
                           ),
@@ -180,9 +179,7 @@ class _PageBuilderState extends State<PageBuilder> {
                             child: IconButton(
                               icon: Icon(
                                 Icons.send,
-                                color: widget.isTransparent
-                                    ? Colors.black87
-                                    : Colors.white,
+                                color: Colors.grey[800],
                                 size: 32,
                               ),
                               onPressed: () {
@@ -195,7 +192,7 @@ class _PageBuilderState extends State<PageBuilder> {
                             height: 60,
                             child: SpinKitFadingCube(
                               color: widget.isTransparent
-                                  ? Colors.black87
+                                  ? Colors.grey[800]
                                   : Colors.white,
                               size: 32,
                             ),
@@ -215,19 +212,25 @@ class _PageBuilderState extends State<PageBuilder> {
             child: GestureDetector(
               onTap: () => setState(
                   () => isMessageFieldVisible = !isMessageFieldVisible),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                margin: const EdgeInsets.all(12.0),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 16,
-                ),
-                child: FaIcon(
-                  FontAwesomeIcons.solidComment,
-                  size: 52,
-                  color: Colors.grey[700],
+              child: MouseRegion(
+                onEnter: (_) => setState(() => hover = true),
+                onExit: (_) => setState(() => hover = false),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  margin: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  child: FaIcon(
+                    !isMessageFieldVisible
+                        ? FontAwesomeIcons.commentAlt
+                        : FontAwesomeIcons.solidCommentAlt,
+                    size: 52,
+                    color: hover ? Colors.grey[900] : Colors.grey[800],
+                  ),
                 ),
               ),
             ),

@@ -29,7 +29,7 @@ class CustomTextfield extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 24),
       child: TextField(
-        cursorColor: Colors.orange,
+        cursorColor: Colors.grey[900],
         minLines: minLines,
         maxLines: maxLines,
         keyboardType: keyboardType,
@@ -40,26 +40,25 @@ class CustomTextfield extends StatelessWidget {
         onEditingComplete: onEditingComplete,
         style: TextStyle(
           fontSize: 20,
-          color: isTransparent ? Colors.black87 : Colors.white54,
+          color: Colors.black87,
           fontFamily: 'Raleway',
           fontWeight: FontWeight.w400,
         ),
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
-              color: isTransparent ? Colors.black26 : Colors.white24,
+              color: Colors.black26,
               width: 2,
             ),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange, width: 2),
+            borderSide: BorderSide(color: Colors.grey[800], width: 2),
           ),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange, width: 2),
+            borderSide: BorderSide(color: Colors.grey[800], width: 2),
           ),
           hintText: hint,
-          hintStyle:
-              TextStyle(color: isTransparent ? Colors.black45 : Colors.white24),
+          hintStyle: TextStyle(color: Colors.black45),
         ),
       ),
     );
