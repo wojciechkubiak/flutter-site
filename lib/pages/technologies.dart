@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../widgets/widgets.dart';
 import 'page_builder.dart';
+import './../models/models.dart';
 
 class Technologies extends StatefulWidget {
   const Technologies({Key key}) : super(key: key);
@@ -16,7 +18,7 @@ class _TechnologiesState extends State<Technologies> {
   Map<String, dynamic> skills = {
     "Flutter": {
       "icon": "assets/flutter.png",
-      "background": "assets/flutter.jpg",
+      "background": "assets/flutter.webp",
       "description": [
         "Objective programming",
         "Making of views and app logic",
@@ -27,7 +29,7 @@ class _TechnologiesState extends State<Technologies> {
     },
     "ReactJS": {
       "icon": "assets/react.png",
-      "background": "assets/react.jpg",
+      "background": "assets/react.webp",
       "description": [
         "React Hooks",
         "Functional programming",
@@ -38,12 +40,12 @@ class _TechnologiesState extends State<Technologies> {
     },
     "NodeJS": {
       "icon": "assets/node.png",
-      "background": "assets/node.jpg",
+      "background": "assets/node.webp",
       "description": ["Basics of ExpressJS", "REST API", "MVC", "Sequelize"]
     },
     "JavaScript": {
       "icon": "assets/javascript.png",
-      "background": "assets/javascript.jpg",
+      "background": "assets/javascript.webp",
       "description": [
         "ES6+",
         "DOM Manipulation",
@@ -55,7 +57,7 @@ class _TechnologiesState extends State<Technologies> {
     },
     "Python": {
       "icon": "assets/python.png",
-      "background": "assets/python.jpg",
+      "background": "assets/python.webp",
       "description": [
         "Basic syntax",
         "Basic functionalities",
@@ -64,17 +66,17 @@ class _TechnologiesState extends State<Technologies> {
     },
     "SQL": {
       "icon": "assets/sql.png",
-      "background": "assets/sql.jpg",
+      "background": "assets/sql.webp",
       "description": ["Advanced syntax", "T-SQL"]
     },
     "HTML": {
       "icon": "assets/html.png",
-      "background": "assets/html.jpg",
+      "background": "assets/html.webp",
       "description": ["Semi-advanced syntax"]
     },
     "CSS": {
       "icon": "assets/css.png",
-      "background": "assets/css.jpg",
+      "background": "assets/css.webp",
       "description": ["CSS Grid", "Flexbox", "SASS", "Animations"]
     },
   };
@@ -92,7 +94,7 @@ class _TechnologiesState extends State<Technologies> {
     return PageBuilder(
       child: _body(),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey[300],
       ),
       activePage: ActivePage.TECHNOLOGIES,
     );
@@ -103,37 +105,38 @@ class _TechnologiesState extends State<Technologies> {
     bool isHDRady = width <= 1600;
 
     return Column(
-      crossAxisAlignment:
-          width < 600 ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
-        Container(
-          margin: EdgeInsets.only(
-            left: width < 600 ? 0 : 64,
-            top: 100,
-            bottom: 20,
-          ),
-          child: Text(
-            'My skills',
-            style: TextStyle(
-              fontSize: !isHDRady ? 72 : 56,
-              color: Colors.grey[800],
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: width < 600 ? 0 : 64, bottom: 20),
-          child: Text(
-            'Check out my strengths',
-            style: TextStyle(
-              fontSize: 42,
-              height: 1.5,
-              color: Colors.grey[700],
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.w600,
-            ),
-            textAlign: TextAlign.center,
+        Padding(
+          padding: EdgeInsets.only(
+              left: width < 600 ? 16 : 64,
+              right: width < 600 ? 16 : 64,
+              top: 80,
+              bottom: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'My skills',
+                style: TextStyle(
+                  fontSize: !isHDRady ? 72 : 56,
+                  color: Colors.grey[800],
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              Text(
+                'Check out my strengths',
+                style: TextStyle(
+                  fontSize: 42,
+                  height: 1.5,
+                  color: Colors.grey[700],
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ],
           ),
         ),
         Center(
@@ -146,6 +149,24 @@ class _TechnologiesState extends State<Technologies> {
                     icon: entry.value["icon"],
                     background: entry.value["background"]);
               }).toList(),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.only(right: 64, top: 60, bottom: 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'including Git, Linux, Windows and Jira',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.grey[800],
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
@@ -163,16 +184,6 @@ class _TechnologiesState extends State<Technologies> {
       margin: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       width: MediaQuery.of(context).size.width / 4 - 80,
       constraints: BoxConstraints(minWidth: 400),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 3,
-            spreadRadius: 0,
-            offset: Offset(0, 3),
-            color: Colors.black45,
-          )
-        ],
-      ),
       child: Stack(
         children: [
           Column(
@@ -180,22 +191,12 @@ class _TechnologiesState extends State<Technologies> {
               Container(
                 width: MediaQuery.of(context).size.width / 4 - 80,
                 constraints: BoxConstraints(minWidth: 400),
-                height: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    // colorFilter: ColorFilter.mode(
-                    //   Colors.orangeAccent.withOpacity(0.7),
-                    //   BlendMode.color,
-                    // ),
-                    image: ExactAssetImage(background),
-                  ),
-                ),
+                height: 50,
               ),
               Container(
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
-                color: Colors.white,
+                color: Color(0xFF666666),
                 child: Column(
                   children: [
                     Padding(
@@ -206,20 +207,21 @@ class _TechnologiesState extends State<Technologies> {
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.w600,
                           fontSize: 24,
+                          color: Colors.black87,
                         ),
                         textAlign: TextAlign.center,
                       ),
                     ),
                     for (var item in body)
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        padding: const EdgeInsets.symmetric(vertical: 3),
                         child: Text(
                           item,
                           style: TextStyle(
                             fontFamily: 'Raleway',
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
-                            color: Colors.black87,
+                            color: Colors.white,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -230,7 +232,7 @@ class _TechnologiesState extends State<Technologies> {
             ],
           ),
           Positioned(
-            top: 164,
+            top: 12,
             left: 12,
             child: Image.asset(
               icon,

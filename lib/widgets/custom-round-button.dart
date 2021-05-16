@@ -9,6 +9,8 @@ class CustomRoundButton extends StatefulWidget {
   final EdgeInsets margin;
   final EdgeInsets padding;
   final bool isTextBlack;
+  final bool isMobileNavbar;
+  final bool isDrawer;
 
   const CustomRoundButton({
     Key key,
@@ -20,6 +22,8 @@ class CustomRoundButton extends StatefulWidget {
     this.margin = const EdgeInsets.symmetric(horizontal: 16),
     this.padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
     this.isTextBlack = false,
+    this.isMobileNavbar = false,
+    this.isDrawer = false,
   }) : super(key: key);
 
   @override
@@ -61,9 +65,11 @@ class _CustomRoundButtonState extends State<CustomRoundButton> {
               fontSize: widget.fontSize,
               fontFamily: 'Raleway',
               fontWeight: FontWeight.w400,
-              color: widget.isTextBlack ? Colors.black87 : Colors.white,
+              color: widget.isActive || widget.isMobileNavbar
+                  ? Colors.white
+                  : Colors.black87,
             ),
-            textAlign: TextAlign.center,
+            textAlign: widget.isDrawer ? TextAlign.start : TextAlign.center,
           ),
         ),
       ),

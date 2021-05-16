@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:html' as html;
-import 'package:flutter/gestures.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/home/home_bloc.dart';
 import 'page_builder.dart';
+import './../models/models.dart';
 
 class About extends StatefulWidget {
   const About({Key key}) : super(key: key);
@@ -20,7 +19,7 @@ class _AboutState extends State<About> {
     return PageBuilder(
       child: _body(context),
       decoration: BoxDecoration(
-        color: Color(0xFFF9F9F9),
+        color: Colors.grey[300],
       ),
       activePage: ActivePage.ABOUT,
     );
@@ -36,7 +35,8 @@ class _AboutState extends State<About> {
       children: [
         Container(
           margin: EdgeInsets.only(
-            top: height < 600 || width < 600 ? 120 : 80,
+            left: height < 600 ? 48 : 16,
+            top: 80,
             bottom: 20,
           ),
           child: Text(
@@ -74,7 +74,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                     color: Colors.black87,
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.w400,
-                    height: 1.2,
+                    height: 1.3,
                   ),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
+import './../models/models.dart';
 
 class Projects extends StatefulWidget {
   const Projects({Key key}) : super(key: key);
@@ -25,7 +26,9 @@ class _ProjectsState extends State<Projects> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+      ),
       child: Stack(
         children: [
           AnimatedOpacity(

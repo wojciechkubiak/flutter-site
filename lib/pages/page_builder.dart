@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import './../models/models.dart';
 
 import '../widgets/widgets.dart';
 
@@ -26,6 +29,7 @@ class PageBuilder extends StatefulWidget {
 }
 
 class _PageBuilderState extends State<PageBuilder> {
+  final _drawerController = ZoomDrawerController();
   double opacity = 0;
   bool isMessageFieldVisible = false;
   String mail = '';
@@ -76,8 +80,69 @@ class _PageBuilderState extends State<PageBuilder> {
     }
   }
 
+  Map<ActivePage, String> translations = {
+    ActivePage.LANDING: "Main page",
+    ActivePage.ABOUT: "About me",
+    ActivePage.TECHNOLOGIES: "Technologies",
+    ActivePage.PROJECTS: "Projects",
+    ActivePage.CONTACT: "Contact",
+  };
+
+  Widget _mobile() {
+    return ZoomDrawer(
+      controller: _drawerController,
+      style: DrawerStyle.DefaultStyle,
+      menuScreen: Container(
+        width: double.infinity,
+        color: Colors.grey[500],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 52,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            MenuButtons(
+              translations: translations,
+              isDrawer: true,
+              activePage: widget.activePage,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Created with Flutter 2 by Wojciech Kubiak',
+                style: TextStyle(color: Colors.white, fontSize: 10),
+              ),
+            ),
+          ],
+        ),
+      ),
+      mainScreen: _web(isDrawerHandler: true),
+      borderRadius: 12,
+      showShadow: true,
+      angle: -12.0,
+      backgroundColor: Colors.grey[500],
+      slideWidth: MediaQuery.of(context).size.width * .45,
+      openCurve: Curves.fastOutSlowIn,
+      closeCurve: Curves.bounceIn,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    return ScreenTypeLayout(desktop: _web(), tablet: _web(), mobile: _mobile());
+  }
+
+  Widget _web({bool isDrawerHandler = false}) {
     final node = FocusScope.of(context);
 
     double width = MediaQuery.of(context).size.width;
@@ -191,9 +256,7 @@ class _PageBuilderState extends State<PageBuilder> {
                           SizedBox(
                             height: 60,
                             child: SpinKitFadingCube(
-                              color: widget.isTransparent
-                                  ? Colors.grey[800]
-                                  : Colors.white,
+                              color: Colors.grey[800],
                               size: 32,
                             ),
                           ),
@@ -206,6 +269,7 @@ class _PageBuilderState extends State<PageBuilder> {
           Navbar(
             activePage: widget.activePage,
             isTransparent: widget.isTransparent,
+            isDrawerHandler: isDrawerHandler,
           ),
           Align(
             alignment: Alignment.bottomRight,
@@ -229,7 +293,9 @@ class _PageBuilderState extends State<PageBuilder> {
                         ? FontAwesomeIcons.commentAlt
                         : FontAwesomeIcons.solidCommentAlt,
                     size: 52,
-                    color: hover ? Colors.grey[900] : Colors.grey[800],
+                    color: hover || width < 600
+                        ? Colors.grey[800]
+                        : Colors.grey[600],
                   ),
                 ),
               ),

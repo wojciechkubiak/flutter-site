@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../widgets/widgets.dart';
 import '../bloc/home/home_bloc.dart';
 import '../pages/pages.dart';
+import './../models/models.dart';
 
 class Landing extends StatelessWidget {
   const Landing({Key key}) : super(key: key);
@@ -16,7 +17,7 @@ class Landing extends StatelessWidget {
       activePage: ActivePage.LANDING,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/bg7b.jpg'),
+          image: AssetImage('assets/2.png'),
           fit: BoxFit.cover,
         ),
       ),

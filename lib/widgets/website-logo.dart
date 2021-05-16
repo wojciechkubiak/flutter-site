@@ -27,6 +27,7 @@ class _WebsiteLogoState extends State<WebsiteLogo> {
           children: [
             Image.asset(
               'assets/WK.png',
+              height: 70,
             ),
             AnimatedContainer(
               duration: Duration(milliseconds: 300),
