@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:mysite/widgets/website-logo.dart';
+import 'package:mysite/widgets/website_logo.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import './../models/models.dart';
-import './custom-round-button.dart';
+import 'custom_round_button.dart';
 import '../bloc/home/home_bloc.dart';
 import './menu_buttons.dart';
 
@@ -140,7 +140,9 @@ class _NavbarState extends State<Navbar> {
       width: double.infinity,
       height: 70,
       decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: widget.activePage != ActivePage.LANDING
+            ? Colors.grey[300]
+            : Colors.transparent,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

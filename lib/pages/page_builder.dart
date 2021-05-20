@@ -41,7 +41,8 @@ class _PageBuilderState extends State<PageBuilder> {
   @override
   initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 200), () {
+    int duration = widget.activePage == ActivePage.LANDING ? 500 : 300;
+    Future.delayed(Duration(milliseconds: duration), () {
       setState(() => opacity = 1);
     });
   }
@@ -94,23 +95,13 @@ class _PageBuilderState extends State<PageBuilder> {
       style: DrawerStyle.DefaultStyle,
       menuScreen: Container(
         width: double.infinity,
+        height: double.infinity,
         color: Colors.grey[500],
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 52,
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            Container(),
             MenuButtons(
               translations: translations,
               isDrawer: true,
@@ -128,7 +119,6 @@ class _PageBuilderState extends State<PageBuilder> {
       ),
       mainScreen: _web(isDrawerHandler: true),
       borderRadius: 12,
-      showShadow: true,
       angle: -12.0,
       backgroundColor: Colors.grey[500],
       slideWidth: MediaQuery.of(context).size.width * .45,
@@ -176,7 +166,7 @@ class _PageBuilderState extends State<PageBuilder> {
                       borderRadius: width < 600
                           ? BorderRadius.zero
                           : BorderRadius.all(Radius.circular(10)),
-                      color: Color(0xFFF9F9F9),
+                      color: width < 700 ? Colors.grey[300] : Color(0xFFF9F9F9),
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 2,
@@ -266,11 +256,12 @@ class _PageBuilderState extends State<PageBuilder> {
                 ],
               ),
             ),
-          Navbar(
-            activePage: widget.activePage,
-            isTransparent: widget.isTransparent,
-            isDrawerHandler: isDrawerHandler,
-          ),
+          if (!(isMessageFieldVisible && isDrawerHandler))
+            Navbar(
+              activePage: widget.activePage,
+              isTransparent: widget.isTransparent,
+              isDrawerHandler: isDrawerHandler,
+            ),
           Align(
             alignment: Alignment.bottomRight,
             child: GestureDetector(
@@ -283,10 +274,10 @@ class _PageBuilderState extends State<PageBuilder> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  margin: const EdgeInsets.all(12.0),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                    horizontal: 16,
+                  margin: EdgeInsets.all(width < 600 ? 2 : 12),
+                  padding: EdgeInsets.symmetric(
+                    vertical: width < 600 ? 2 : 8,
+                    horizontal: width < 600 ? 2 : 16,
                   ),
                   child: FaIcon(
                     !isMessageFieldVisible

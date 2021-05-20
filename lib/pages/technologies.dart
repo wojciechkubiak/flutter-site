@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
-import '../widgets/widgets.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysite/bloc/home/home_bloc.dart';
+import 'package:mysite/widgets/custom_round_button.dart';
 import 'page_builder.dart';
+
 import './../models/models.dart';
 
 class Technologies extends StatefulWidget {
@@ -13,6 +15,7 @@ class Technologies extends StatefulWidget {
 }
 
 class _TechnologiesState extends State<Technologies> {
+  CarouselController buttonCarouselController = CarouselController();
   double opacity = 0;
 
   Map<String, dynamic> skills = {
@@ -67,17 +70,25 @@ class _TechnologiesState extends State<Technologies> {
     "SQL": {
       "icon": "assets/sql.png",
       "background": "assets/sql.webp",
-      "description": ["Advanced syntax", "T-SQL"]
+      "description": ["MySQL / PostgreSQL syntax", "Joins", "T-SQL"]
     },
     "HTML": {
       "icon": "assets/html.png",
       "background": "assets/html.webp",
-      "description": ["Semi-advanced syntax"]
+      "description": [
+        "Semi-advanced syntax",
+      ]
     },
     "CSS": {
       "icon": "assets/css.png",
       "background": "assets/css.webp",
-      "description": ["CSS Grid", "Flexbox", "SASS", "Animations"]
+      "description": [
+        "CSS Grid",
+        "Flexbox",
+        "SASS",
+        "Animations",
+        "Responsive web design"
+      ]
     },
   };
 
@@ -108,10 +119,11 @@ class _TechnologiesState extends State<Technologies> {
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: width < 600 ? 16 : 64,
-              right: width < 600 ? 16 : 64,
-              top: 80,
-              bottom: 20),
+            left: width < 600 ? 16 : 64,
+            right: width < 600 ? 16 : 64,
+            top: 80,
+            bottom: 32,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -123,19 +135,20 @@ class _TechnologiesState extends State<Technologies> {
                   fontFamily: 'Raleway',
                   fontWeight: FontWeight.w600,
                 ),
-                textAlign: TextAlign.left,
+                textAlign: width < 600 ? TextAlign.center : TextAlign.left,
               ),
-              Text(
-                'Check out my strengths',
-                style: TextStyle(
-                  fontSize: 42,
-                  height: 1.5,
-                  color: Colors.grey[700],
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w600,
+              if (width > 700)
+                Text(
+                  'Check out my strengths',
+                  style: TextStyle(
+                    fontSize: 42,
+                    height: 1.5,
+                    color: Colors.grey[700],
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: width < 600 ? TextAlign.center : TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
             ],
           ),
         ),
@@ -152,22 +165,56 @@ class _TechnologiesState extends State<Technologies> {
             ],
           ),
         ),
-        Container(
-          padding: const EdgeInsets.only(right: 64, top: 60, bottom: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                'including Git, Linux, Windows and Jira',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.grey[800],
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w400,
+        if (width > 700)
+          Container(
+            padding: const EdgeInsets.only(top: 20, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'including Git, Linux, Windows and Jira',
+                  style: TextStyle(
+                    fontSize: width < 600 ? 18 : 24,
+                    color: Colors.grey[800],
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+              ],
+            ),
+          ),
+        Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Text(
+            'Find out what can I do with them',
+            style: TextStyle(
+              fontSize: isHDRady ? 32 : 42,
+              height: 1.5,
+              fontFamily: 'Raleway',
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        CustomRoundButton(
+          margin: EdgeInsets.symmetric(vertical: 20),
+          text: 'My projects',
+          width: 260,
+          onTap: () =>
+              BlocProvider.of<HomeBloc>(context).add(HomeProjectsShow()),
+          isActive: true,
+          fontSize: isHDRady ? 26 : 32,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 48.0),
+          child: IconButton(
+            onPressed: () =>
+                BlocProvider.of<HomeBloc>(context).add(HomeProjectsShow()),
+            icon: Icon(
+              Icons.arrow_forward,
+              color: Colors.grey[800],
+              size: 48,
+            ),
           ),
         ),
       ],
@@ -180,23 +227,40 @@ class _TechnologiesState extends State<Technologies> {
     String icon,
     String background,
   }) {
+    double width = MediaQuery.of(context).size.width;
+    bool isMobile = width <= 700;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-      width: MediaQuery.of(context).size.width / 4 - 80,
+      margin: EdgeInsets.symmetric(vertical: 20, horizontal: isMobile ? 8 : 40),
+      width: width / 4 - 80,
       constraints: BoxConstraints(minWidth: 400),
       child: Stack(
         children: [
           Column(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 4 - 80,
+                width: width / 4 - 80,
                 constraints: BoxConstraints(minWidth: 400),
                 height: 50,
               ),
               Container(
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
-                color: Color(0xFF666666),
+                constraints: BoxConstraints(minHeight: 180),
+                decoration: !isMobile
+                    ? BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 2,
+                            spreadRadius: 2,
+                            offset: Offset(0, 1),
+                            color: Colors.black26,
+                          )
+                        ],
+                        color: Colors.grey[100],
+                      )
+                    : BoxDecoration(
+                        color: Colors.grey[100],
+                      ),
                 child: Column(
                   children: [
                     Padding(
@@ -206,8 +270,8 @@ class _TechnologiesState extends State<Technologies> {
                         style: TextStyle(
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                          color: Colors.black87,
+                          fontSize: 26,
+                          color: Colors.grey[800],
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -221,7 +285,7 @@ class _TechnologiesState extends State<Technologies> {
                             fontFamily: 'Raleway',
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
-                            color: Colors.white,
+                            color: Colors.grey[600],
                           ),
                           textAlign: TextAlign.center,
                         ),

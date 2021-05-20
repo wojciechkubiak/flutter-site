@@ -31,6 +31,7 @@ class Landing extends StatelessWidget {
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
           margin: EdgeInsets.only(
@@ -62,12 +63,16 @@ class Landing extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        CustomRoundButton(
-          text: 'Find out more',
-          onTap: () => BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
-          isActive: true,
-          fontSize: 28,
-          margin: const EdgeInsets.symmetric(vertical: 24),
+        Center(
+          child: CustomRoundButton(
+            text: 'Find out more',
+            onTap: () =>
+                BlocProvider.of<HomeBloc>(context).add(HomeAboutShow()),
+            isActive: true,
+            fontSize: 28,
+            margin: const EdgeInsets.symmetric(vertical: 24),
+            width: 260,
+          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: width > 600 ? 72.0 : 52.0),
