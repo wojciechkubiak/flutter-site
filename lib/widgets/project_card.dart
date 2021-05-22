@@ -4,19 +4,13 @@ import 'package:flutter/material.dart';
 import 'custom_round_button.dart';
 
 class ProjectCard extends StatefulWidget {
-  final String title;
-  final String img;
-  final List<String> technologies;
-  final String body;
-  final List<String> links;
+  final MapEntry<String, dynamic> project;
+  final Function pickCurrent;
 
   ProjectCard({
     Key key,
-    this.title,
-    this.img,
-    this.technologies,
-    this.body,
-    this.links,
+    this.project,
+    this.pickCurrent,
   }) : super(key: key);
 
   @override
@@ -24,6 +18,23 @@ class ProjectCard extends StatefulWidget {
 }
 
 class _ProjectCardState extends State<ProjectCard> {
+  String title;
+  String img;
+  List<String> technologies;
+  String body;
+  List<String> links;
+
+  @override
+  void initState() {
+    super.initState();
+    title = widget.project.key;
+
+    img = widget.project.value["img"];
+    technologies = widget.project.value["technologies"];
+    body = widget.project.value["description"];
+    links = widget.project.value["links"];
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -57,7 +68,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     : MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    widget.title,
+                    title,
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontWeight: FontWeight.w600,
@@ -74,7 +85,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     ),
                   CustomRoundButton(
                     text: 'VIEW PROJECT',
-                    onTap: () {},
+                    onTap: () => widget.pickCurrent(widget.project),
                     isActive: true,
                     fontSize: isMobile ? 16 : 28,
                     margin: EdgeInsets.symmetric(vertical: 8),
@@ -89,7 +100,7 @@ class _ProjectCardState extends State<ProjectCard> {
             child: Container(
               margin:
                   EdgeInsets.only(top: isMobile ? 10 : 80, left: 5, right: 5),
-              padding: widget.img.contains("m") || !isMobile
+              padding: img.contains("m") || !isMobile
                   ? EdgeInsets.zero
                   : EdgeInsets.only(top: 20),
               child: Container(
@@ -105,8 +116,8 @@ class _ProjectCardState extends State<ProjectCard> {
                   ],
                 ),
                 child: Image.asset(
-                  widget.img,
-                  height: widget.img.contains("m") || !isMobile ? 300 : 200,
+                  img,
+                  height: img.contains("m") || !isMobile ? 300 : 200,
                 ),
               ),
             ),
@@ -114,35 +125,5 @@ class _ProjectCardState extends State<ProjectCard> {
         ],
       ),
     );
-  }
-
-  Widget _linkImage(List<String> links, double width) {
-    return Column(
-        children: links.map((element) {
-      return Container(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: Image.asset(
-            element,
-            width: width,
-          ),
-        ),
-      );
-    }).toList());
-  }
-
-  Widget _technologyImage(List<String> technologies, double width) {
-    return Wrap(
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: technologies.map((element) {
-          return Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child: Image.asset(
-              element,
-              width: width,
-            ),
-          );
-        }).toList());
   }
 }
