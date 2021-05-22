@@ -49,7 +49,7 @@ class _ProjectCardState extends State<ProjectCard> {
               margin: EdgeInsets.only(bottom: 80),
               height: isMobile
                   ? width <= 700
-                      ? 380
+                      ? 360
                       : 420
                   : 500,
               width: 800,
@@ -57,7 +57,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 color: Colors.white,
               ),
               padding: EdgeInsets.only(
-                top: 200,
+                top: isMobile ? 120 : 200,
                 bottom: isMobile ? 0 : 50,
                 left: 40,
                 right: 40,
@@ -77,12 +77,11 @@ class _ProjectCardState extends State<ProjectCard> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  if (!isMobile)
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.grey[400],
-                      size: 48,
-                    ),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.grey[400],
+                    size: 48,
+                  ),
                   CustomRoundButton(
                     text: 'VIEW PROJECT',
                     onTap: () => widget.pickCurrent(widget.project),

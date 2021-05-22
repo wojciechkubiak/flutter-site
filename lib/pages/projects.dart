@@ -200,7 +200,7 @@ class _ProjectsState extends State<Projects> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Container(
-                              margin: EdgeInsets.only(top: 24),
+                              margin: EdgeInsets.only(top: 48),
                               padding: EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 color: Colors.grey[800],
