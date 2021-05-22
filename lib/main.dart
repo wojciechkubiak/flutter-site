@@ -49,17 +49,18 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(primarySwatch: CustomColors().customWhite),
           home: Scaffold(
             body: Theme(
-                data: Theme.of(context).copyWith(),
-                child: BlocBuilder<HomeBloc, HomeState>(
-                  builder: (context, state) {
-                    if (state is HomeInitial) return Landing();
-                    if (state is HomeAbout) return About();
-                    if (state is HomeTechnologies) return Technologies();
-                    if (state is HomeProjects) return Projects();
-                    // if (state is HomeContact) return Contact();
-                    return Container();
-                  },
-                )),
+              data: Theme.of(context).copyWith(),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state is HomeInitial) return Landing();
+                  if (state is HomeAbout) return About();
+                  if (state is HomeTechnologies) return Technologies();
+                  if (state is HomeProjects) return Projects();
+
+                  return Container();
+                },
+              ),
+            ),
           ),
         ),
       ),

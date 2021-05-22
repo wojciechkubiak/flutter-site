@@ -111,11 +111,11 @@ class _ProjectsState extends State<Projects> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.only(top: isMobile ? 80 : 0),
+          padding: EdgeInsets.only(top: 80),
           width: double.infinity,
           child: CarouselSlider(
             options: CarouselOptions(
-                height: isMobile ? 600 : 800,
+                height: MediaQuery.of(context).size.width <= 1200 ? 600 : 800,
                 viewportFraction: isMobile ? 0.7 : 0.3),
             carouselController: buttonCarouselController,
             items: projects.entries.map((entry) {

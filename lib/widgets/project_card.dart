@@ -88,7 +88,10 @@ class _ProjectCardState extends State<ProjectCard> {
             alignment: Alignment.topCenter,
             child: Container(
               margin:
-                  EdgeInsets.only(top: isMobile ? 40 : 80, left: 5, right: 5),
+                  EdgeInsets.only(top: isMobile ? 10 : 80, left: 5, right: 5),
+              padding: widget.img.contains("m") || !isMobile
+                  ? EdgeInsets.zero
+                  : EdgeInsets.only(top: 20),
               child: Container(
                 decoration: BoxDecoration(
                   color: isMobile ? Colors.grey[300] : Colors.white,
@@ -103,7 +106,7 @@ class _ProjectCardState extends State<ProjectCard> {
                 ),
                 child: Image.asset(
                   widget.img,
-                  height: 300,
+                  height: widget.img.contains("m") || !isMobile ? 300 : 200,
                 ),
               ),
             ),

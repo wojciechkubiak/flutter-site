@@ -113,7 +113,7 @@ class _TechnologiesState extends State<Technologies> {
 
   Widget _body() {
     double width = MediaQuery.of(context).size.width;
-    bool isHDRady = width <= 1600;
+    bool isHDRady = width <= 1200;
 
     return Column(
       children: [

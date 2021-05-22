@@ -12,12 +12,14 @@ class Navbar extends StatefulWidget {
   final ActivePage activePage;
   final bool isTransparent;
   final bool isDrawerHandler;
+  final Function isMenuHandler;
 
   const Navbar({
     Key key,
     this.activePage,
     this.isTransparent = false,
     this.isDrawerHandler,
+    this.isMenuHandler,
   }) : super(key: key);
 
   @override
@@ -82,16 +84,19 @@ class _NavbarState extends State<Navbar> {
                 GestureDetector(
                   onTap: () {
                     if (widget.isDrawerHandler) {
-                      if (isDropdownShown)
+                      if (isDropdownShown) {
                         ZoomDrawer.of(context).close();
-                      else
+                        widget.isMenuHandler(false);
+                      } else {
                         ZoomDrawer.of(context).open();
+                        widget.isMenuHandler(true);
+                      }
                     }
 
                     setState(() => isDropdownShown = !isDropdownShown);
                   },
                   child: Icon(
-                    isDropdownShown ? Icons.close : Icons.menu,
+                    Icons.menu,
                     color: Colors.grey[900],
                     size: 46,
                   ),
