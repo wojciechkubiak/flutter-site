@@ -67,7 +67,7 @@ class _CustomRoundButtonState extends State<CustomRoundButton> {
               fontWeight: FontWeight.w400,
               color: widget.isActive || widget.isMobileNavbar
                   ? Colors.white
-                  : Colors.black87,
+                  : Colors.grey[800],
             ),
             textAlign: widget.isDrawer ? TextAlign.start : TextAlign.center,
           ),

@@ -52,50 +52,65 @@ class _ProjectsState extends State<Projects> {
       "technologies": ['assets/react.png', 'assets/node.png'],
       "description":
           'Website for dutch renovating company created. It takes clients data, counts new usage values and sends them to the company through ZOHO CRM.',
-      "links": [
-        'assets/apple.png',
-        'assets/google.png',
-      ]
+      "links": {
+        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
+        "Google play": {
+          "img": 'assets/google.png',
+          "url": 'https://google.com',
+        }
+      }
     },
     "Meditate": {
       "img": "assets/1m.png",
       "technologies": ['assets/flutter.png'],
       "description":
           'Project that supports user wellbeing through multiple exercises and by creating statistics that can be later used by user.',
-      "links": [
-        'assets/apple.png',
-        'assets/google.png',
-      ]
+      "links": {
+        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
+        "Google play": {
+          "img": 'assets/google.png',
+          "url": 'https://google.com',
+        }
+      }
     },
     "Opqn": {
       "img": "assets/2w.png",
       "technologies": ['assets/java.png', 'assets/node.png', 'assets/sql.png'],
       "description":
           'Study project that allows user to share health data with dietitians.',
-      "links": [
-        'assets/apple.png',
-        'assets/google.png',
-      ]
+      "links": {
+        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
+        "Google play": {
+          "img": 'assets/google.png',
+          "url": 'https://google.com',
+        }
+      }
     },
     "Obb-sys": {
       "img": "assets/2m.png",
       "technologies": ['assets/react.png', 'assets/node.png', 'assets/sql.png'],
       "description":
           'My engineering project for Centre of Biomedical Research. It allows user to collect data and statistics that later shows if there are any symptoms of being sick, of animal.',
-      "links": [
-        'assets/apple.png',
-        'assets/google.png',
-      ]
+      "links": {
+        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
+        "Google play": {
+          "img": 'assets/google.png',
+          "url": 'https://google.com',
+        }
+      }
     },
     "Opqn-web": {
       "img": "assets/3w.png",
       "technologies": ['assets/react.png', 'assets/node.png', 'assets/sql.png'],
       "description":
           'Easy project that allows user to share health data with dietitians.',
-      "links": [
-        'assets/apple.png',
-        'assets/google.png',
-      ]
+      "links": {
+        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
+        "Google play": {
+          "img": 'assets/google.png',
+          "url": 'https://google.com',
+        }
+      }
     },
     "Animacare": {
       "img": "assets/3m.png",
@@ -106,10 +121,13 @@ class _ProjectsState extends State<Projects> {
       ],
       "description":
           'My own project I\'m currently working on. Application for people that love their animals and want to compare them with other users, track their data and more.',
-      "links": [
-        'assets/apple.png',
-        'assets/google.png',
-      ]
+      "links": {
+        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
+        "Google play": {
+          "img": 'assets/google.png',
+          "url": 'https://google.com',
+        }
+      }
     },
   };
 
@@ -194,29 +212,24 @@ class _ProjectsState extends State<Projects> {
                             ),
                           ),
                         ),
-                        _linkImage(currentProject.value["links"],
-                            isMobile ? 110 : 160),
-                        if (isMobile)
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              margin: EdgeInsets.only(top: 48),
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[800],
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                              child: GestureDetector(
+                        if (!isMobile)
+                          _linkImages(currentProject.value["links"],
+                              isMobile ? 110 : 160)
+                        else
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 64),
+                            child: Column(children: [
+                              _mobileLinkButtons(currentProject.value["links"]),
+                              CustomRoundButton(
+                                margin: EdgeInsets.symmetric(vertical: 4),
+                                text: 'Back',
+                                width: 260,
                                 onTap: () =>
                                     setState(() => isProjectInfoShown = false),
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                  size: 42,
-                                ),
+                                isActive: false,
+                                fontSize: 26,
                               ),
-                            ),
+                            ]),
                           ),
                       ],
                     ),
@@ -251,18 +264,33 @@ class _ProjectsState extends State<Projects> {
     );
   }
 
-  Widget _linkImage(List<String> links, double width) {
+  Widget _linkImages(Map<String, dynamic> links, double width) {
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: links.map((element) {
+        children: links.entries.map((element) {
           return Container(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Image.asset(
-                element,
+                element.value["img"],
                 width: width,
               ),
             ),
+          );
+        }).toList());
+  }
+
+  Widget _mobileLinkButtons(Map<String, dynamic> links) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: links.entries.map((element) {
+          return CustomRoundButton(
+            margin: EdgeInsets.symmetric(vertical: 4),
+            text: element.key,
+            width: 260,
+            onTap: () => setState(() => isProjectInfoShown = false),
+            isActive: true,
+            fontSize: 26,
           );
         }).toList());
   }
