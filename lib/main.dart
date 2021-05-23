@@ -54,8 +54,10 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, state) {
                   if (state is HomeInitial) return Landing();
                   if (state is HomeAbout) return About();
-                  if (state is HomeTechnologies) return Technologies();
-                  if (state is HomeProjects) return Projects();
+                  if (state is HomeTechnologies)
+                    return Technologies(technologies: state.technologies);
+                  if (state is HomeProjects)
+                    return Projects(projects: state.projects);
 
                   return Container();
                 },

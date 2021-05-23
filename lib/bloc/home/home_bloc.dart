@@ -53,11 +53,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Stream<HomeState> _mapAppHomeTechnologiesToState(
       HomeTechnologiesShow event) async* {
-    yield HomeTechnologies();
+    Map<String, dynamic> technologies = await _homeService.getTechnologies();
+
+    yield HomeTechnologies(technologies: technologies);
   }
 
   Stream<HomeState> _mapAppHomeProjectsToState(HomeProjectsShow event) async* {
-    yield HomeProjects();
+    Map<String, dynamic> projects = await _homeService.getProjects();
+
+    yield HomeProjects(projects: projects);
   }
 
   Stream<HomeState> _mapAppHomeContactToState(HomeContactShow event) async* {

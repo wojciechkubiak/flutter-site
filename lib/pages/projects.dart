@@ -1,13 +1,15 @@
 import 'package:blur/blur.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/widgets.dart';
 import './../models/models.dart';
 import 'page_builder.dart';
 
 class Projects extends StatefulWidget {
-  const Projects({Key key}) : super(key: key);
+  final Map<String, dynamic> projects;
+  const Projects({Key key, this.projects}) : super(key: key);
 
   @override
   _ProjectsState createState() => _ProjectsState();
@@ -17,10 +19,12 @@ class _ProjectsState extends State<Projects> {
   double opacity = 0;
   bool isProjectInfoShown = false;
   MapEntry<String, dynamic> currentProject;
+  Map<String, dynamic> _projects;
 
   @override
   initState() {
     super.initState();
+    _projects = widget.projects;
     Future.delayed(Duration(seconds: 1), () {
       setState(() => opacity = 1);
     });
@@ -45,91 +49,6 @@ class _ProjectsState extends State<Projects> {
       isProjectInfoShown = true;
     });
   }
-
-  Map<String, dynamic> projects = {
-    "Energe": {
-      "img": "assets/1w.png",
-      "technologies": ['assets/react.png', 'assets/node.png'],
-      "description":
-          'Website for dutch renovating company created. It takes clients data, counts new usage values and sends them to the company through ZOHO CRM.',
-      "links": {
-        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-        "Google play": {
-          "img": 'assets/google.png',
-          "url": 'https://google.com',
-        }
-      }
-    },
-    "Meditate": {
-      "img": "assets/1m.png",
-      "technologies": ['assets/flutter.png'],
-      "description":
-          'Project that supports user wellbeing through multiple exercises and by creating statistics that can be later used by user.',
-      "links": {
-        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-        "Google play": {
-          "img": 'assets/google.png',
-          "url": 'https://google.com',
-        }
-      }
-    },
-    "Opqn": {
-      "img": "assets/2w.png",
-      "technologies": ['assets/java.png', 'assets/node.png', 'assets/sql.png'],
-      "description":
-          'Study project that allows user to share health data with dietitians.',
-      "links": {
-        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-        "Google play": {
-          "img": 'assets/google.png',
-          "url": 'https://google.com',
-        }
-      }
-    },
-    "Obb-sys": {
-      "img": "assets/2m.png",
-      "technologies": ['assets/react.png', 'assets/node.png', 'assets/sql.png'],
-      "description":
-          'My engineering project for Centre of Biomedical Research. It allows user to collect data and statistics that later shows if there are any symptoms of being sick, of animal.',
-      "links": {
-        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-        "Google play": {
-          "img": 'assets/google.png',
-          "url": 'https://google.com',
-        }
-      }
-    },
-    "Opqn-web": {
-      "img": "assets/3w.png",
-      "technologies": ['assets/react.png', 'assets/node.png', 'assets/sql.png'],
-      "description":
-          'Easy project that allows user to share health data with dietitians.',
-      "links": {
-        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-        "Google play": {
-          "img": 'assets/google.png',
-          "url": 'https://google.com',
-        }
-      }
-    },
-    "Animacare": {
-      "img": "assets/3m.png",
-      "technologies": [
-        'assets/flutter.png',
-        'assets/node.png',
-        'assets/sql.png'
-      ],
-      "description":
-          'My own project I\'m currently working on. Application for people that love their animals and want to compare them with other users, track their data and more.',
-      "links": {
-        "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-        "Google play": {
-          "img": 'assets/google.png',
-          "url": 'https://google.com',
-        }
-      }
-    },
-  };
 
   Widget _body() {
     bool isMobile = MediaQuery.of(context).size.width <= 700;
@@ -248,7 +167,7 @@ class _ProjectsState extends State<Projects> {
                   height: MediaQuery.of(context).size.width <= 1200 ? 600 : 800,
                   viewportFraction: isMobile ? 0.7 : 0.3),
               carouselController: buttonCarouselController,
-              items: projects.entries.map((entry) {
+              items: _projects.entries.map((entry) {
                 return Builder(
                   builder: (BuildContext context) {
                     return ProjectCard(
@@ -265,15 +184,35 @@ class _ProjectsState extends State<Projects> {
   }
 
   Widget _linkImages(Map<String, dynamic> links, double width) {
+    void goTo(url) async => await launch(url);
+
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: links.entries.map((element) {
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Image.asset(
-                element.value["img"],
-                width: width,
+          return GestureDetector(
+            onTap: () => goTo(element.value["url"]),
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      element.value["img"],
+                      width: width,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: Text(
+                        element.key,
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -281,6 +220,8 @@ class _ProjectsState extends State<Projects> {
   }
 
   Widget _mobileLinkButtons(Map<String, dynamic> links) {
+    void goTo(url) async => await launch(url);
+
     return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: links.entries.map((element) {
@@ -288,7 +229,7 @@ class _ProjectsState extends State<Projects> {
             margin: EdgeInsets.symmetric(vertical: 4),
             text: element.key,
             width: 260,
-            onTap: () => setState(() => isProjectInfoShown = false),
+            onTap: () => goTo(element.value["url"]),
             isActive: true,
             fontSize: 26,
           );

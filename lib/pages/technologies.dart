@@ -8,7 +8,8 @@ import 'page_builder.dart';
 import './../models/models.dart';
 
 class Technologies extends StatefulWidget {
-  const Technologies({Key key}) : super(key: key);
+  final Map<String, dynamic> technologies;
+  Technologies({Key key, this.technologies}) : super(key: key);
 
   @override
   _TechnologiesState createState() => _TechnologiesState();
@@ -17,84 +18,12 @@ class Technologies extends StatefulWidget {
 class _TechnologiesState extends State<Technologies> {
   CarouselController buttonCarouselController = CarouselController();
   double opacity = 0;
-
-  Map<String, dynamic> skills = {
-    "Flutter": {
-      "icon": "assets/flutter.png",
-      "background": "assets/flutter.webp",
-      "description": [
-        "Objective programming",
-        "Making of views and app logic",
-        "BLoC architecture",
-        "Implementation and modification of existing packages",
-        "Animations"
-      ]
-    },
-    "ReactJS": {
-      "icon": "assets/react.png",
-      "background": "assets/react.webp",
-      "description": [
-        "React Hooks",
-        "Functional programming",
-        "Objective programming",
-        "External libraries implementation",
-        "Basics of Redux"
-      ]
-    },
-    "NodeJS": {
-      "icon": "assets/node.png",
-      "background": "assets/node.webp",
-      "description": ["Basics of ExpressJS", "REST API", "MVC", "Sequelize"]
-    },
-    "JavaScript": {
-      "icon": "assets/javascript.png",
-      "background": "assets/javascript.webp",
-      "description": [
-        "ES6+",
-        "DOM Manipulation",
-        "Functional programming",
-        "Objective programming",
-        "Async",
-        "Basics of TypeScript"
-      ]
-    },
-    "Python": {
-      "icon": "assets/python.png",
-      "background": "assets/python.webp",
-      "description": [
-        "Basic syntax",
-        "Basic functionalities",
-        "Simple web apps implementation"
-      ]
-    },
-    "SQL": {
-      "icon": "assets/sql.png",
-      "background": "assets/sql.webp",
-      "description": ["MySQL / PostgreSQL syntax", "Joins", "T-SQL"]
-    },
-    "HTML": {
-      "icon": "assets/html.png",
-      "background": "assets/html.webp",
-      "description": [
-        "Semi-advanced syntax",
-      ]
-    },
-    "CSS": {
-      "icon": "assets/css.png",
-      "background": "assets/css.webp",
-      "description": [
-        "CSS Grid",
-        "Flexbox",
-        "SASS",
-        "Animations",
-        "Responsive web design"
-      ]
-    },
-  };
+  Map<String, dynamic> _skills;
 
   @override
   initState() {
     super.initState();
+    _skills = widget.technologies;
     Future.delayed(Duration(seconds: 1), () {
       setState(() => opacity = 1);
     });
@@ -155,7 +84,7 @@ class _TechnologiesState extends State<Technologies> {
         Center(
           child: Wrap(
             children: [
-              ...skills.entries.map((entry) {
+              ..._skills.entries.map((entry) {
                 return _card(
                     header: entry.key,
                     body: entry.value["description"],
