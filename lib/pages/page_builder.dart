@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import './../models/models.dart';
-
+import './../config/colors.dart';
 import '../widgets/widgets.dart';
 
 class PageBuilder extends StatefulWidget {
@@ -98,7 +98,7 @@ class _PageBuilderState extends State<PageBuilder> {
       menuScreen: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.grey[500],
+        color: Color(0xFF252525),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,9 +182,7 @@ class _PageBuilderState extends State<PageBuilder> {
                           borderRadius: width < 600
                               ? BorderRadius.zero
                               : BorderRadius.all(Radius.circular(10)),
-                          color: width < 700
-                              ? Colors.grey[300]
-                              : Color(0xFFF9F9F9),
+                          color: Color(0xFFDDE8FF),
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 2,
@@ -266,7 +264,7 @@ class _PageBuilderState extends State<PageBuilder> {
                               SizedBox(
                                 height: 60,
                                 child: SpinKitFadingCube(
-                                  color: Colors.grey[800],
+                                  color: Color(0xFFD16758),
                                   size: 32,
                                 ),
                               ),
@@ -305,9 +303,7 @@ class _PageBuilderState extends State<PageBuilder> {
                             ? FontAwesomeIcons.commentAlt
                             : FontAwesomeIcons.solidCommentAlt,
                         size: 52,
-                        color: hover || width < 600
-                            ? Colors.grey[800]
-                            : Colors.grey[600],
+                        color: Color(0xFFD16758),
                       ),
                     ),
                   ),

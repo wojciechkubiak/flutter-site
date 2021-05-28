@@ -15,4 +15,11 @@ Map<int, Color> headerColor = {
 
 class CustomColors {
   MaterialColor customWhite = MaterialColor(0xFFFFFFFF, headerColor);
+
+  Color cinnabar = Color(0xFFEF3E36);
+  Color maximumBlueGreen = Color(0xFF17BEBB);
+  Color raisinBlack = Color(0xFF2E282A);
+  Color raisinBlackDarker = Color(0xFF1B1819);
+  Color macaroniAndCheese = Color(0xFFEDB88B);
+  Color paloPing = Color(0xFFFAD8D6);
 }

@@ -20,9 +20,7 @@ class ProjectCard extends StatefulWidget {
 class _ProjectCardState extends State<ProjectCard> {
   String title;
   String img;
-  List<String> technologies;
   String body;
-  List<String> links;
 
   @override
   void initState() {
@@ -30,9 +28,7 @@ class _ProjectCardState extends State<ProjectCard> {
     title = widget.project.key;
 
     img = widget.project.value["img"];
-    technologies = widget.project.value["technologies"];
     body = widget.project.value["description"];
-    links = widget.project.value["links"];
   }
 
   @override
@@ -53,9 +49,6 @@ class _ProjectCardState extends State<ProjectCard> {
                       : 420
                   : 500,
               width: 800,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
               padding: EdgeInsets.only(
                 top: isMobile ? 120 : 200,
                 bottom: isMobile ? 0 : 50,
@@ -70,7 +63,7 @@ class _ProjectCardState extends State<ProjectCard> {
                   Text(
                     title,
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Colors.grey[800],
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Raleway',
                       fontSize: isMobile ? 32 : 42,
@@ -79,7 +72,7 @@ class _ProjectCardState extends State<ProjectCard> {
                   ),
                   Icon(
                     Icons.arrow_drop_down,
-                    color: Colors.grey[400],
+                    color: Colors.grey[600],
                     size: 48,
                   ),
                   CustomRoundButton(

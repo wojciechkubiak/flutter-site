@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/bloc/home/home_bloc.dart';
+import 'package:mysite/config/colors.dart';
 import 'package:mysite/widgets/custom_round_button.dart';
 import 'page_builder.dart';
 
@@ -34,7 +35,10 @@ class _TechnologiesState extends State<Technologies> {
     return PageBuilder(
       child: _body(),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        image: DecorationImage(
+          image: AssetImage('assets/2bgb.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
       activePage: ActivePage.TECHNOLOGIES,
     );
@@ -72,7 +76,7 @@ class _TechnologiesState extends State<Technologies> {
                   style: TextStyle(
                     fontSize: 42,
                     height: 1.5,
-                    color: Colors.grey[700],
+                    color: Colors.grey[600],
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.w600,
                   ),

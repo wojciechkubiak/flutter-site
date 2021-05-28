@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mysite/config/colors.dart';
 
 class CustomTextfield extends StatelessWidget {
   final String hint;
@@ -29,7 +30,7 @@ class CustomTextfield extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 24),
       child: TextField(
-        cursorColor: Colors.grey[900],
+        cursorColor: Color(0xFFD16758),
         minLines: minLines,
         maxLines: maxLines,
         keyboardType: keyboardType,
@@ -40,7 +41,7 @@ class CustomTextfield extends StatelessWidget {
         onEditingComplete: onEditingComplete,
         style: TextStyle(
           fontSize: 20,
-          color: Colors.black87,
+          color: Colors.black,
           fontFamily: 'Raleway',
           fontWeight: FontWeight.w400,
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mysite/config/colors.dart';
 
 class CustomRoundButton extends StatefulWidget {
   final String text;
@@ -46,7 +47,7 @@ class _CustomRoundButtonState extends State<CustomRoundButton> {
             color: widget.isActive
                 ? hover
                     ? Color(0xFF424242)
-                    : Color(0xFF545454)
+                    : Color(0xFFD16758)
                 : Colors.transparent,
             borderRadius: BorderRadius.all(Radius.circular(40)),
             border: new Border.all(

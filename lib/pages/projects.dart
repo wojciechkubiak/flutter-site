@@ -35,7 +35,10 @@ class _ProjectsState extends State<Projects> {
     return PageBuilder(
       child: _body(),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        image: DecorationImage(
+          image: AssetImage('assets/2bgb.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
       activePage: ActivePage.PROJECTS,
     );

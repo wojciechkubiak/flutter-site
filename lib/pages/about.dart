@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mysite/config/colors.dart';
 
 import '../widgets/widgets.dart';
 import '../bloc/home/home_bloc.dart';
@@ -19,7 +20,10 @@ class _AboutState extends State<About> {
     return PageBuilder(
       child: _body(context),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        image: DecorationImage(
+          image: AssetImage('assets/2bgb.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
       activePage: ActivePage.ABOUT,
     );
@@ -71,7 +75,7 @@ Currently I accept various types of orders, I am working full time job as a prog
 If you want to hire me or give me an assignment, so I can share my passion with you, fill in the form at the end of the website or just go into one of my social medias and message me.''',
                   style: TextStyle(
                     fontSize: isHDRady ? 18 : 22,
-                    color: Colors.black87,
+                    color: Colors.white,
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.w400,
                     height: 1.3,
@@ -101,6 +105,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                           fontSize: isHDRady ? 32 : 42,
                           height: 1.5,
                           fontFamily: 'Raleway',
+                          color: Colors.grey[700],
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -111,7 +116,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                         .add(HomeTechnologiesShow()),
                     icon: Icon(
                       Icons.arrow_forward,
-                      color: Colors.grey[800],
+                      color: CustomColors().cinnabar,
                       size: 48,
                     ),
                   ),

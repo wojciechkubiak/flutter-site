@@ -17,7 +17,7 @@ class Landing extends StatelessWidget {
       activePage: ActivePage.LANDING,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/2.png'),
+          image: AssetImage('assets/2bg.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -47,7 +47,7 @@ class Landing extends StatelessWidget {
                   : width < 1600
                       ? 72
                       : 96,
-              color: Colors.grey[700],
+              color: Colors.white,
               fontWeight: FontWeight.bold,
               fontFamily: 'Rucas',
             ),

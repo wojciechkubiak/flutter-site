@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:mysite/config/colors.dart';
 import 'package:mysite/widgets/website_logo.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import './../models/models.dart';
@@ -75,7 +76,7 @@ class _NavbarState extends State<Navbar> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: widget.activePage != ActivePage.LANDING
-                  ? Colors.grey[300]
+                  ? CustomColors().paloPing
                   : Colors.transparent,
             ),
             child: Row(
@@ -145,8 +146,8 @@ class _NavbarState extends State<Navbar> {
       width: double.infinity,
       height: 70,
       decoration: BoxDecoration(
-        color: widget.activePage != ActivePage.LANDING
-            ? Colors.grey[300]
+        color: widget.activePage != ActivePage.LANDING && isCompact
+            ? CustomColors().paloPing
             : Colors.transparent,
       ),
       child: Row(
