@@ -182,7 +182,7 @@ class _PageBuilderState extends State<PageBuilder> {
                           borderRadius: width < 600
                               ? BorderRadius.zero
                               : BorderRadius.all(Radius.circular(10)),
-                          color: Color(0xFFDDE8FF),
+                          color: Color(0xFFF4F7FF),
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 2,
@@ -303,7 +303,11 @@ class _PageBuilderState extends State<PageBuilder> {
                             ? FontAwesomeIcons.commentAlt
                             : FontAwesomeIcons.solidCommentAlt,
                         size: 52,
-                        color: Color(0xFFD16758),
+                        color: !isMessageFieldVisible
+                            ? Color(0xFFD16758)
+                            : MediaQuery.of(context).size.width <= 700
+                                ? Colors.grey[800]
+                                : Color(0xFFD16758),
                       ),
                     ),
                   ),
