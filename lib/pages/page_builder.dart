@@ -101,24 +101,13 @@ class _PageBuilderState extends State<PageBuilder> {
         width: double.infinity,
         height: double.infinity,
         color: Color(0xFF252525),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(),
-            MenuButtons(
-              translations: translations,
-              isDrawer: true,
-              activePage: widget.activePage,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Created with Flutter 2 by Wojciech Kubiak',
-                style: TextStyle(color: Colors.white, fontSize: 10),
-              ),
-            ),
-          ],
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: MenuButtons(
+            translations: translations,
+            isDrawer: true,
+            activePage: widget.activePage,
+          ),
         ),
       ),
       mainScreen: _web(isDrawerHandler: true),
