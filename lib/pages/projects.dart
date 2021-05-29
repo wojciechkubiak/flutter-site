@@ -2,6 +2,7 @@ import 'package:blur/blur.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../widgets/widgets.dart';
 import './../models/models.dart';
@@ -20,6 +21,7 @@ class _ProjectsState extends State<Projects> {
   bool isProjectInfoShown = false;
   MapEntry<String, dynamic> currentProject;
   Map<String, dynamic> _projects;
+  bool isNavbarAboveText = false;
 
   @override
   initState() {
@@ -35,6 +37,7 @@ class _ProjectsState extends State<Projects> {
     return PageBuilder(
       child: _body(),
       activePage: ActivePage.PROJECTS,
+      isNavbarAboveText: isNavbarAboveText,
     );
   }
 
@@ -159,21 +162,29 @@ class _ProjectsState extends State<Projects> {
           Container(
             padding: EdgeInsets.only(top: 80),
             width: double.infinity,
-            child: CarouselSlider(
-              options: CarouselOptions(
-                  height: MediaQuery.of(context).size.width <= 1200 ? 600 : 800,
-                  viewportFraction: isMobile ? 0.7 : 0.3),
-              carouselController: buttonCarouselController,
-              items: _projects.entries.map((entry) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return ProjectCard(
-                      project: entry,
-                      pickCurrent: pickCurrent,
-                    );
-                  },
-                );
-              }).toList(),
+            child: VisibilityDetector(
+              key: Key('projects-header'),
+              onVisibilityChanged: (visibilityInfo) {
+                var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                setState(() => isNavbarAboveText = visiblePercentage < 100);
+              },
+              child: CarouselSlider(
+                options: CarouselOptions(
+                    height:
+                        MediaQuery.of(context).size.width <= 1200 ? 600 : 800,
+                    viewportFraction: isMobile ? 0.7 : 0.3),
+                carouselController: buttonCarouselController,
+                items: _projects.entries.map((entry) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return ProjectCard(
+                        project: entry,
+                        pickCurrent: pickCurrent,
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
             ),
           ),
       ],

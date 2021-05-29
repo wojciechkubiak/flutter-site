@@ -95,22 +95,9 @@ class _ProjectCardState extends State<ProjectCard> {
               padding: img.contains("m") || !isMobile
                   ? EdgeInsets.zero
                   : EdgeInsets.only(top: 20),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isMobile ? Colors.grey[300] : Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 2,
-                      spreadRadius: 2,
-                      offset: Offset(0, 1),
-                      color: Colors.black26,
-                    )
-                  ],
-                ),
-                child: Image.asset(
-                  img,
-                  height: img.contains("m") || !isMobile ? 300 : 200,
-                ),
+              child: Image.asset(
+                img,
+                height: img.contains("m") || !isMobile ? 300 : 200,
               ),
             ),
           )

@@ -14,6 +14,7 @@ class Navbar extends StatefulWidget {
   final bool isTransparent;
   final bool isDrawerHandler;
   final Function isMenuHandler;
+  final bool isNavbarAboveText;
 
   const Navbar({
     Key key,
@@ -21,6 +22,7 @@ class Navbar extends StatefulWidget {
     this.isTransparent = false,
     this.isDrawerHandler,
     this.isMenuHandler,
+    this.isNavbarAboveText,
   }) : super(key: key);
 
   @override
@@ -45,7 +47,7 @@ class _NavbarState extends State<Navbar> {
     return ScreenTypeLayout(
       desktop: _webBar(
         translations: translations,
-        isCompact: isCompact,
+        isCompact: false,
         isHeightMinimal: false,
       ),
       tablet: _webBar(
@@ -141,12 +143,13 @@ class _NavbarState extends State<Navbar> {
       );
     }
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
       padding: EdgeInsets.all(12),
       width: double.infinity,
       height: 70,
       decoration: BoxDecoration(
-        color: widget.activePage != ActivePage.LANDING && isCompact
+        color: widget.isNavbarAboveText
             ? CustomColors().paloPing
             : Colors.transparent,
       ),

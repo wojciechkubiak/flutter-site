@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/bloc/home/home_bloc.dart';
 import 'package:mysite/config/colors.dart';
 import 'package:mysite/widgets/custom_round_button.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 import 'page_builder.dart';
 
 import './../models/models.dart';
@@ -20,6 +21,7 @@ class _TechnologiesState extends State<Technologies> {
   CarouselController buttonCarouselController = CarouselController();
   double opacity = 0;
   Map<String, dynamic> _skills;
+  bool isNavbarAboveText = false;
 
   @override
   initState() {
@@ -35,6 +37,7 @@ class _TechnologiesState extends State<Technologies> {
     return PageBuilder(
       child: _body(),
       activePage: ActivePage.TECHNOLOGIES,
+      isNavbarAboveText: isNavbarAboveText,
     );
   }
 
@@ -54,15 +57,22 @@ class _TechnologiesState extends State<Technologies> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                'My skills',
-                style: TextStyle(
-                  fontSize: !isHDRady ? 72 : 56,
-                  color: Colors.grey[800],
-                  fontFamily: 'Raleway',
-                  fontWeight: FontWeight.w600,
+              VisibilityDetector(
+                key: Key('technologies-header'),
+                onVisibilityChanged: (visibilityInfo) {
+                  var visiblePercentage = visibilityInfo.visibleFraction * 100;
+                  setState(() => isNavbarAboveText = visiblePercentage < 100);
+                },
+                child: Text(
+                  'My skills',
+                  style: TextStyle(
+                    fontSize: !isHDRady ? 72 : 56,
+                    color: Colors.grey[800],
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: width < 600 ? TextAlign.center : TextAlign.left,
                 ),
-                textAlign: width < 600 ? TextAlign.center : TextAlign.left,
               ),
               if (width > 700)
                 Text(
@@ -173,21 +183,7 @@ class _TechnologiesState extends State<Technologies> {
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
                 constraints: BoxConstraints(minHeight: 180),
-                decoration: !isMobile
-                    ? BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 2,
-                            spreadRadius: 2,
-                            offset: Offset(0, 1),
-                            color: Colors.black26,
-                          )
-                        ],
-                        color: Colors.grey[100],
-                      )
-                    : BoxDecoration(
-                        color: Colors.grey[100],
-                      ),
+                color: CustomColors().paloPinkBright,
                 child: Column(
                   children: [
                     Padding(

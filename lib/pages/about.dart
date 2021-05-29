@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mysite/config/colors.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../widgets/widgets.dart';
 import '../bloc/home/home_bloc.dart';
@@ -15,11 +16,14 @@ class About extends StatefulWidget {
 }
 
 class _AboutState extends State<About> {
+  bool isNavbarAboveText = false;
+
   @override
   Widget build(BuildContext context) {
     return PageBuilder(
       child: _body(context),
       activePage: ActivePage.ABOUT,
+      isNavbarAboveText: isNavbarAboveText,
     );
   }
 
@@ -37,13 +41,20 @@ class _AboutState extends State<About> {
             top: 80,
             bottom: 20,
           ),
-          child: Text(
-            'Find out more',
-            style: TextStyle(
-              fontSize: !isHDRady ? 72 : 56,
-              color: Colors.grey[800],
-              fontFamily: 'Raleway',
-              fontWeight: FontWeight.w600,
+          child: VisibilityDetector(
+            key: Key('about-header'),
+            onVisibilityChanged: (visibilityInfo) {
+              var visiblePercentage = visibilityInfo.visibleFraction * 100;
+              setState(() => isNavbarAboveText = visiblePercentage < 100);
+            },
+            child: Text(
+              'Find out more',
+              style: TextStyle(
+                fontSize: !isHDRady ? 72 : 56,
+                color: Colors.grey[800],
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
@@ -110,7 +121,7 @@ If you want to hire me or give me an assignment, so I can share my passion with 
                         .add(HomeTechnologiesShow()),
                     icon: Icon(
                       Icons.arrow_forward,
-                      color: CustomColors().cinnabar,
+                      color: Colors.grey[800],
                       size: 48,
                     ),
                   ),

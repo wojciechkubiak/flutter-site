@@ -22,4 +22,5 @@ class CustomColors {
   Color raisinBlackDarker = Color(0xFF1B1819);
   Color macaroniAndCheese = Color(0xFFEDB88B);
   Color paloPing = Color(0xFFFAD8D6);
+  Color paloPinkBright = Color(0xFFFFE5E3);
 }

@@ -14,15 +14,17 @@ class PageBuilder extends StatefulWidget {
   final Widget child;
   final ActivePage activePage;
   final bool isTransparent;
+  final bool isNavbarAboveText;
   final BoxDecoration decoration;
 
-  PageBuilder({
-    Key key,
-    this.child,
-    this.activePage,
-    this.decoration,
-    this.isTransparent = false,
-  }) : super(key: key);
+  PageBuilder(
+      {Key key,
+      this.child,
+      this.activePage,
+      this.decoration,
+      this.isTransparent = false,
+      this.isNavbarAboveText = false})
+      : super(key: key);
 
   @override
   _PageBuilderState createState() => _PageBuilderState();
@@ -289,6 +291,7 @@ class _PageBuilderState extends State<PageBuilder> {
                     isTransparent: widget.isTransparent,
                     isDrawerHandler: isDrawerHandler,
                     isMenuHandler: isMenuHandler,
+                    isNavbarAboveText: widget.isNavbarAboveText,
                   ),
                 Align(
                   alignment: Alignment.bottomRight,
