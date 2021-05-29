@@ -34,12 +34,6 @@ class _ProjectsState extends State<Projects> {
   Widget build(BuildContext context) {
     return PageBuilder(
       child: _body(),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/2bgb.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
       activePage: ActivePage.PROJECTS,
     );
   }

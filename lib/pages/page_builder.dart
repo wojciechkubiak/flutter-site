@@ -147,173 +147,183 @@ class _PageBuilderState extends State<PageBuilder> {
       setState(() => isMenuShown = value);
     }
 
-    return GestureDetector(
-      onTap: () {
-        if (isMenuShown) {
-          isMenuHandler(false);
-          _drawerController.close();
-        }
-      },
-      child: AbsorbPointer(
-        absorbing: isMenuShown,
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: widget.decoration,
-          child: Stack(
-            children: [
-              AnimatedOpacity(
-                opacity: opacity,
-                duration: Duration(seconds: 1),
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: widget.child,
-                  ),
-                ),
-              ),
-              if (isMessageFieldVisible)
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: isHDReady ? 600 : 800,
-                        decoration: BoxDecoration(
-                          borderRadius: width < 600
-                              ? BorderRadius.zero
-                              : BorderRadius.all(Radius.circular(10)),
-                          color: Color(0xFFF4F7FF),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 2,
-                              spreadRadius: 1,
-                              offset: Offset(0, 2),
-                              color: Colors.black26,
-                            )
-                          ],
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isHDReady ? 24 : 64,
-                          vertical: 32,
-                        ),
-                        margin: EdgeInsets.only(
-                          bottom: width >= 600 ? 96 : 0,
-                          right: width >= 600 ? 12 : 0,
-                        ),
-                        child: Column(
-                          mainAxisSize:
-                              width < 600 ? MainAxisSize.max : MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Have a question?',
-                              style: TextStyle(
-                                fontSize: !isHDReady
-                                    ? 52
-                                    : width < 600
-                                        ? 36
-                                        : 42,
-                                color: Colors.grey[800],
-                                fontFamily: 'Raleway',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            CustomTextfield(
-                              hint: 'Email',
-                              keyboardType: TextInputType.text,
-                              isTransparent: widget.isTransparent,
-                              textInputAction: TextInputAction.next,
-                              onChange: (value) => setState(() => mail = value),
-                              onEditingComplete: () => node.nextFocus(),
-                            ),
-                            CustomTextfield(
-                              hint: 'Subject',
-                              keyboardType: TextInputType.text,
-                              isTransparent: widget.isTransparent,
-                              textInputAction: TextInputAction.next,
-                              onChange: (value) =>
-                                  setState(() => subject = value),
-                              onEditingComplete: () => node.nextFocus(),
-                            ),
-                            CustomTextfield(
-                              hint: 'Message',
-                              minLines: 5,
-                              maxLines: 5,
-                              keyboardType: TextInputType.text,
-                              isTransparent: widget.isTransparent,
-                              textInputAction: TextInputAction.done,
-                              onChange: (value) =>
-                                  setState(() => content = value),
-                              onEditingComplete: () => node.unfocus(),
-                            ),
-                            if (isIconVisible)
-                              SizedBox(
-                                height: 60,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.send,
-                                    color: Colors.grey[800],
-                                    size: 32,
-                                  ),
-                                  onPressed: () {
-                                    if (isFilled) _sendMail();
-                                  },
-                                ),
-                              )
-                            else
-                              SizedBox(
-                                height: 60,
-                                child: SpinKitFadingCube(
-                                  color: Color(0xFFD16758),
-                                  size: 32,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              if (!(isMessageFieldVisible && isDrawerHandler))
-                Navbar(
-                  activePage: widget.activePage,
-                  isTransparent: widget.isTransparent,
-                  isDrawerHandler: isDrawerHandler,
-                  isMenuHandler: isMenuHandler,
-                ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: GestureDetector(
-                  onTap: () => setState(
-                      () => isMessageFieldVisible = !isMessageFieldVisible),
-                  child: MouseRegion(
-                    onEnter: (_) => setState(() => hover = true),
-                    onExit: (_) => setState(() => hover = false),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      margin: EdgeInsets.all(width < 600 ? 2 : 12),
-                      padding: EdgeInsets.symmetric(
-                        vertical: width < 600 ? 2 : 8,
-                        horizontal: width < 600 ? 2 : 16,
-                      ),
-                      child: FaIcon(
-                        !isMessageFieldVisible
-                            ? FontAwesomeIcons.commentAlt
-                            : FontAwesomeIcons.solidCommentAlt,
-                        size: 52,
-                        color: !isMessageFieldVisible
-                            ? Color(0xFFD16758)
-                            : MediaQuery.of(context).size.width <= 700
-                                ? Colors.grey[800]
-                                : Color(0xFFD16758),
-                      ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/2bgb.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: GestureDetector(
+        onTap: () {
+          if (isMenuShown) {
+            isMenuHandler(false);
+            _drawerController.close();
+          }
+        },
+        child: AbsorbPointer(
+          absorbing: isMenuShown,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: widget.decoration,
+            child: Stack(
+              children: [
+                AnimatedOpacity(
+                  opacity: opacity,
+                  duration: Duration(seconds: 1),
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: widget.child,
                     ),
                   ),
                 ),
-              )
-            ],
+                if (isMessageFieldVisible)
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: isHDReady ? 600 : 800,
+                          decoration: BoxDecoration(
+                            borderRadius: width < 600
+                                ? BorderRadius.zero
+                                : BorderRadius.all(Radius.circular(10)),
+                            color: Color(0xFFF4F7FF),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 2,
+                                spreadRadius: 1,
+                                offset: Offset(0, 2),
+                                color: Colors.black26,
+                              )
+                            ],
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isHDReady ? 24 : 64,
+                            vertical: 32,
+                          ),
+                          margin: EdgeInsets.only(
+                            bottom: width >= 600 ? 96 : 0,
+                            right: width >= 600 ? 12 : 0,
+                          ),
+                          child: Column(
+                            mainAxisSize: width < 600
+                                ? MainAxisSize.max
+                                : MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Have a question?',
+                                style: TextStyle(
+                                  fontSize: !isHDReady
+                                      ? 52
+                                      : width < 600
+                                          ? 36
+                                          : 42,
+                                  color: Colors.grey[800],
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              CustomTextfield(
+                                hint: 'Email',
+                                keyboardType: TextInputType.text,
+                                isTransparent: widget.isTransparent,
+                                textInputAction: TextInputAction.next,
+                                onChange: (value) =>
+                                    setState(() => mail = value),
+                                onEditingComplete: () => node.nextFocus(),
+                              ),
+                              CustomTextfield(
+                                hint: 'Subject',
+                                keyboardType: TextInputType.text,
+                                isTransparent: widget.isTransparent,
+                                textInputAction: TextInputAction.next,
+                                onChange: (value) =>
+                                    setState(() => subject = value),
+                                onEditingComplete: () => node.nextFocus(),
+                              ),
+                              CustomTextfield(
+                                hint: 'Message',
+                                minLines: 5,
+                                maxLines: 5,
+                                keyboardType: TextInputType.text,
+                                isTransparent: widget.isTransparent,
+                                textInputAction: TextInputAction.done,
+                                onChange: (value) =>
+                                    setState(() => content = value),
+                                onEditingComplete: () => node.unfocus(),
+                              ),
+                              if (isIconVisible)
+                                SizedBox(
+                                  height: 60,
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.send,
+                                      color: Colors.grey[800],
+                                      size: 32,
+                                    ),
+                                    onPressed: () {
+                                      if (isFilled) _sendMail();
+                                    },
+                                  ),
+                                )
+                              else
+                                SizedBox(
+                                  height: 60,
+                                  child: SpinKitFadingCube(
+                                    color: Color(0xFFD16758),
+                                    size: 32,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                if (!(isMessageFieldVisible && isDrawerHandler))
+                  Navbar(
+                    activePage: widget.activePage,
+                    isTransparent: widget.isTransparent,
+                    isDrawerHandler: isDrawerHandler,
+                    isMenuHandler: isMenuHandler,
+                  ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: GestureDetector(
+                    onTap: () => setState(
+                        () => isMessageFieldVisible = !isMessageFieldVisible),
+                    child: MouseRegion(
+                      onEnter: (_) => setState(() => hover = true),
+                      onExit: (_) => setState(() => hover = false),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        margin: EdgeInsets.all(width < 600 ? 2 : 12),
+                        padding: EdgeInsets.symmetric(
+                          vertical: width < 600 ? 2 : 8,
+                          horizontal: width < 600 ? 2 : 16,
+                        ),
+                        child: FaIcon(
+                          !isMessageFieldVisible
+                              ? FontAwesomeIcons.commentAlt
+                              : FontAwesomeIcons.solidCommentAlt,
+                          size: 52,
+                          color: !isMessageFieldVisible
+                              ? Color(0xFFD16758)
+                              : MediaQuery.of(context).size.width <= 700
+                                  ? Colors.grey[800]
+                                  : Color(0xFFD16758),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

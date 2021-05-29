@@ -19,12 +19,6 @@ class _AboutState extends State<About> {
   Widget build(BuildContext context) {
     return PageBuilder(
       child: _body(context),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/2bgb.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
       activePage: ActivePage.ABOUT,
     );
   }
