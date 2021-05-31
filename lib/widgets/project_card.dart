@@ -34,7 +34,7 @@ class _ProjectCardState extends State<ProjectCard> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    bool isMobile = width <= 1200;
+    bool isResized = width <= 1600;
 
     return Container(
       child: Stack(
@@ -42,21 +42,21 @@ class _ProjectCardState extends State<ProjectCard> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.only(bottom: 80),
-              height: isMobile
+              margin: EdgeInsets.only(bottom: isResized ? 20 : 80),
+              height: isResized
                   ? width <= 700
                       ? 360
                       : 420
                   : 500,
               width: 800,
               padding: EdgeInsets.only(
-                top: isMobile ? 120 : 200,
-                bottom: isMobile ? 0 : 50,
+                top: isResized ? 100 : 200,
+                bottom: isResized ? 0 : 50,
                 left: 40,
                 right: 40,
               ),
               child: Column(
-                mainAxisAlignment: isMobile
+                mainAxisAlignment: isResized
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.spaceBetween,
                 children: [
@@ -66,7 +66,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       color: Colors.grey[800],
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Raleway',
-                      fontSize: isMobile ? 32 : 42,
+                      fontSize: isResized ? 32 : 42,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -79,7 +79,7 @@ class _ProjectCardState extends State<ProjectCard> {
                     text: 'VIEW PROJECT',
                     onTap: () => widget.pickCurrent(widget.project),
                     isActive: true,
-                    fontSize: isMobile ? 16 : 28,
+                    fontSize: isResized ? 16 : 28,
                     margin: EdgeInsets.symmetric(vertical: 8),
                     width: 260,
                   ),
@@ -91,13 +91,13 @@ class _ProjectCardState extends State<ProjectCard> {
             alignment: Alignment.topCenter,
             child: Container(
               margin:
-                  EdgeInsets.only(top: isMobile ? 10 : 80, left: 5, right: 5),
-              padding: img.contains("m") || !isMobile
+                  EdgeInsets.only(top: isResized ? 10 : 80, left: 5, right: 5),
+              padding: img.contains("m") || !isResized
                   ? EdgeInsets.zero
                   : EdgeInsets.only(top: 20),
               child: Image.asset(
                 img,
-                height: img.contains("m") || !isMobile ? 300 : 200,
+                height: img.contains("m") || !isResized ? 300 : 200,
               ),
             ),
           )

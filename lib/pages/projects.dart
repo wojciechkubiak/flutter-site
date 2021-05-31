@@ -80,15 +80,24 @@ class _ProjectsState extends State<Projects> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         if (!isMobile)
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: () =>
-                                  setState(() => isProjectInfoShown = false),
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: Colors.grey[800],
-                                size: 42,
+                          VisibilityDetector(
+                            key: Key('projects-info-back'),
+                            onVisibilityChanged: (visibilityInfo) {
+                              var visiblePercentage =
+                                  visibilityInfo.visibleFraction * 100;
+                              setState(() =>
+                                  isNavbarAboveText = visiblePercentage < 100);
+                            },
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    setState(() => isProjectInfoShown = false),
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.grey[800],
+                                  size: 42,
+                                ),
                               ),
                             ),
                           ),
@@ -166,12 +175,13 @@ class _ProjectsState extends State<Projects> {
               key: Key('projects-header'),
               onVisibilityChanged: (visibilityInfo) {
                 var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                setState(() => isNavbarAboveText = visiblePercentage < 100);
+                setState(() => isNavbarAboveText =
+                    visiblePercentage < 80 && !isProjectInfoShown);
               },
               child: CarouselSlider(
                 options: CarouselOptions(
                     height:
-                        MediaQuery.of(context).size.width <= 1200 ? 600 : 800,
+                        MediaQuery.of(context).size.width <= 1600 ? 600 : 800,
                     viewportFraction: isMobile ? 0.7 : 0.3),
                 carouselController: buttonCarouselController,
                 items: _projects.entries.map((entry) {

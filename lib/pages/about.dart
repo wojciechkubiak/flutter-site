@@ -37,7 +37,7 @@ class _AboutState extends State<About> {
       children: [
         Container(
           margin: EdgeInsets.only(
-            left: height < 600 ? 48 : 16,
+            left: height <= 700 ? 48 : 16,
             top: 80,
             bottom: 20,
           ),
