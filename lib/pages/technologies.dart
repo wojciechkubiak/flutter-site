@@ -183,7 +183,7 @@ class _TechnologiesState extends State<Technologies> {
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
                 constraints: BoxConstraints(minHeight: 180),
-                color: CustomColors().paloPinkBright,
+                color: Colors.white,
                 child: Column(
                   children: [
                     Padding(

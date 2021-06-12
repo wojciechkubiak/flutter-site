@@ -169,7 +169,7 @@ class _ProjectsState extends State<Projects> {
           )
         else
           Container(
-            padding: EdgeInsets.only(top: 80),
+            padding: EdgeInsets.only(top: isMobile ? 20 : 80),
             width: double.infinity,
             child: VisibilityDetector(
               key: Key('projects-header'),
@@ -180,9 +180,10 @@ class _ProjectsState extends State<Projects> {
               },
               child: CarouselSlider(
                 options: CarouselOptions(
-                    height:
-                        MediaQuery.of(context).size.width <= 1600 ? 600 : 800,
-                    viewportFraction: isMobile ? 0.7 : 0.3),
+                  height: isMobile ? 600 : 800,
+                  viewportFraction: isMobile ? 0.9 : 0.4,
+                  enlargeCenterPage: true,
+                ),
                 carouselController: buttonCarouselController,
                 items: _projects.entries.map((entry) {
                   return Builder(
