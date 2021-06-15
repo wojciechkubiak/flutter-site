@@ -45,7 +45,7 @@ class Landing extends StatelessWidget {
               fontSize: width < 680
                   ? 44
                   : width < 1600
-                      ? 72
+                      ? 82
                       : 96,
               color: Colors.white,
               fontWeight: FontWeight.bold,

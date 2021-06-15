@@ -52,6 +52,7 @@ class _ProjectsState extends State<Projects> {
 
   Widget _body() {
     bool isMobile = MediaQuery.of(context).size.width <= 700;
+    bool isHD = MediaQuery.of(context).size.width <= 1600 && !isMobile;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -119,9 +120,7 @@ class _ProjectsState extends State<Projects> {
                             ),
                             child: Image.asset(
                               currentProject.value["img"],
-                              height: currentProject.value["img"].contains("m")
-                                  ? 450
-                                  : 300,
+                              height: 450,
                             ),
                           ),
                         _technologyImage(
@@ -169,8 +168,9 @@ class _ProjectsState extends State<Projects> {
           )
         else
           Container(
-            padding: EdgeInsets.only(top: isMobile ? 20 : 80),
+            padding: EdgeInsets.only(top: isHD ? 20 : 80),
             width: double.infinity,
+            height: isHD || isMobile ? 650 : double.infinity,
             child: VisibilityDetector(
               key: Key('projects-header'),
               onVisibilityChanged: (visibilityInfo) {
@@ -180,7 +180,7 @@ class _ProjectsState extends State<Projects> {
               },
               child: CarouselSlider(
                 options: CarouselOptions(
-                  height: isMobile ? 600 : 800,
+                  height: 750,
                   viewportFraction: isMobile ? 0.9 : 0.4,
                   enlargeCenterPage: true,
                 ),
