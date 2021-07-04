@@ -1,6 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -17,16 +18,27 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
+  List<Map<String, dynamic>> _mobileData = [];
+  List<Map<String, dynamic>> _webData = [];
+
+  Map<String, dynamic> _currentMobileProject = {};
+  Map<String, dynamic> _currentWebProject = {};
+
   double opacity = 0;
-  bool isProjectInfoShown = false;
-  MapEntry<String, dynamic> currentProject;
-  Map<String, dynamic> _projects;
   bool isNavbarAboveText = false;
+  bool isSwitched = false;
+
+  CarouselController buttonCarouselController = CarouselController();
 
   @override
   initState() {
     super.initState();
-    _projects = widget.projects;
+    _mobileData = widget.projects["mobile"];
+    _currentMobileProject = widget.projects["mobile"].first;
+    _webData = widget.projects["web"];
+    _currentWebProject = widget.projects["web"].first;
+
+    print('IM OUT');
     Future.delayed(Duration(seconds: 1), () {
       setState(() => opacity = 1);
     });
@@ -35,178 +47,217 @@ class _ProjectsState extends State<Projects> {
   @override
   Widget build(BuildContext context) {
     return PageBuilder(
-      child: _body(),
+      child: ScreenTypeLayout(
+        mobile: _body(scale: 0.1),
+        tablet: _body(scale: 0.07),
+        desktop: _body(scale: 0.05),
+      ),
       activePage: ActivePage.PROJECTS,
       isNavbarAboveText: isNavbarAboveText,
     );
   }
 
-  CarouselController buttonCarouselController = CarouselController();
+  Widget _body({double scale}) {
+    double width = MediaQuery.of(context).size.width;
 
-  void pickCurrent(MapEntry<String, dynamic> project) {
-    setState(() {
-      currentProject = project;
-      isProjectInfoShown = true;
-    });
-  }
-
-  Widget _body() {
-    bool isMobile = MediaQuery.of(context).size.width <= 700;
-    bool isHD = MediaQuery.of(context).size.width <= 1600 && !isMobile;
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (isProjectInfoShown)
+    return Container(
+      padding: EdgeInsets.only(
+        left: width * 0.1,
+        right: width * 0.1,
+        top: 80,
+        bottom: 32,
+      ),
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 80),
-            constraints: BoxConstraints(minHeight: 700),
-            child: Wrap(
-              alignment: WrapAlignment.spaceEvenly,
-              crossAxisAlignment: WrapCrossAlignment.center,
+            width: width * 0.8,
+            padding: EdgeInsets.only(
+              top: scale == 0.1 ? 72 : 0,
+              bottom: 64,
+              left: width * 0.1,
+              right: width * 0.1,
+            ),
+            child: Column(
               children: [
-                if (currentProject != null)
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal:
-                          currentProject.value["img"].contains("m") && !isMobile
-                              ? 112
-                              : 12,
+                VisibilityDetector(
+                  key: Key('technologies-header'),
+                  onVisibilityChanged: (visibilityInfo) {
+                    var visiblePercentage =
+                        visibilityInfo.visibleFraction * 100;
+                    setState(() => isNavbarAboveText = visiblePercentage < 100);
+                  },
+                  child: Text(
+                    'Projects',
+                    style: TextStyle(
+                      fontSize: 72 * (1 - scale * 6),
+                      color: Colors.grey[800],
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w600,
                     ),
-                    width: 450,
-                    constraints: BoxConstraints(
-                      minHeight: 600,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (!isMobile)
-                          VisibilityDetector(
-                            key: Key('projects-info-back'),
-                            onVisibilityChanged: (visibilityInfo) {
-                              var visiblePercentage =
-                                  visibilityInfo.visibleFraction * 100;
-                              setState(() =>
-                                  isNavbarAboveText = visiblePercentage < 100);
-                            },
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: GestureDetector(
-                                onTap: () =>
-                                    setState(() => isProjectInfoShown = false),
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.grey[800],
-                                  size: 42,
-                                ),
-                              ),
-                            ),
-                          ),
-                        Text(
-                          currentProject.key,
-                          style: TextStyle(
-                            fontFamily: 'Raleway',
-                            color: Colors.grey[800],
-                            fontSize: 52,
-                          ),
-                        ),
-                        if (isMobile)
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical:
-                                  currentProject.value["img"].contains("m")
-                                      ? 24
-                                      : 0,
-                            ),
-                            child: Image.asset(
-                              currentProject.value["img"],
-                              height: 450,
-                            ),
-                          ),
-                        _technologyImage(
-                          currentProject.value["technologies"],
-                          isMobile ? 48 : 75,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 24, horizontal: isMobile ? 24 : 0),
-                          child: Text(
-                            currentProject.value["description"],
-                            style: TextStyle(
-                              fontFamily: 'Raleway',
-                              color: Colors.grey[700],
-                              fontSize: 24,
-                            ),
-                          ),
-                        ),
-                        if (!isMobile)
-                          _linkImages(currentProject.value["links"],
-                              isMobile ? 110 : 160)
-                        else
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 64),
-                            child: Column(children: [
-                              _mobileLinkButtons(currentProject.value["links"]),
-                              CustomRoundButton(
-                                margin: EdgeInsets.symmetric(vertical: 4),
-                                text: 'Back',
-                                width: 260,
-                                onTap: () =>
-                                    setState(() => isProjectInfoShown = false),
-                                isActive: false,
-                                fontSize: 26,
-                              ),
-                            ]),
-                          ),
-                      ],
+                    textAlign: scale > 0.07 ? TextAlign.center : TextAlign.left,
+                  ),
+                ),
+                _modeSwitch(),
+                if (!isSwitched)
+                  _carousel(data: _mobileData, isMobile: true, scale: scale)
+                else
+                  _carousel(data: _webData, isMobile: false, scale: scale),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Text(
+                    'swipe for more',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                if (!isMobile)
-                  Image.asset(currentProject.value["img"], height: 450),
+                )
               ],
             ),
-          )
-        else
-          Container(
-            padding: EdgeInsets.only(top: isHD ? 20 : 80),
-            width: double.infinity,
-            height: isHD || isMobile ? 650 : double.infinity,
-            child: VisibilityDetector(
-              key: Key('projects-header'),
-              onVisibilityChanged: (visibilityInfo) {
-                var visiblePercentage = visibilityInfo.visibleFraction * 100;
-                setState(() => isNavbarAboveText =
-                    visiblePercentage < 80 && !isProjectInfoShown);
-              },
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 750,
-                  viewportFraction: isMobile ? 0.9 : 0.4,
-                  enlargeCenterPage: true,
-                ),
-                carouselController: buttonCarouselController,
-                items: _projects.entries.map((entry) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return ProjectCard(
-                        project: entry,
-                        pickCurrent: pickCurrent,
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _modeSwitch() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 42.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomTextButton(
+            text: 'Mobile',
+            onPressed: () => setState(() => isSwitched = false),
+            isActive: !isSwitched,
+            width: 112,
+          ),
+          CustomToggle(
+            isActive: isSwitched,
+            onTap: () => setState(
+              () => isSwitched = !isSwitched,
             ),
           ),
+          CustomTextButton(
+            text: 'Web',
+            onPressed: () => setState(() => isSwitched = true),
+            isActive: isSwitched,
+            width: 112,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _carousel({
+    List<Map<String, dynamic>> data,
+    bool isMobile,
+    double scale,
+  }) {
+    CarouselController buttonCarouselController = CarouselController();
+
+    double multiplier = 1 + (1 - scale * 10);
+
+    return Container(
+      padding: const EdgeInsets.only(top: 42.0),
+      child: CarouselSlider(
+        options: CarouselOptions(
+          height: isMobile
+              ? isMobile && scale == 0.07
+                  ? 820
+                  : 760
+              : !isMobile && scale == 0.05
+                  ? 420
+                  : null,
+          viewportFraction: isMobile ? 0.9 : 1,
+          enlargeCenterPage: false,
+          enableInfiniteScroll: true,
+          onPageChanged: (value, _) => setState(
+            () => !isMobile
+                ? _currentWebProject = data[value]
+                : _currentMobileProject = data[value],
+          ),
+        ),
+        carouselController: buttonCarouselController,
+        items: data.map((value) {
+          return Builder(
+            builder: (BuildContext context) {
+              return _card(
+                img: value["img"],
+                title: value["title"],
+                description: value["description"],
+                links: value["links"],
+                imgWidth: !isMobile ? 420 * multiplier : 180 * multiplier,
+                scale: scale,
+              );
+            },
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _card({
+    String img,
+    String title,
+    String description,
+    double scale,
+    Map<String, dynamic> links,
+    double imgWidth = 200,
+  }) {
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      direction: Axis.horizontal,
+      children: [
+        RepaintBoundary(
+          child: Image.asset(
+            img,
+            width: imgWidth,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(top: 32),
+          width: 320,
+          child: Column(
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontFamily: 'Raleway',
+                  color: Colors.grey[800],
+                  fontSize: 52 * (1 - scale * 4),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  description,
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    color: Colors.grey[700],
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              _linkImages(links: links),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Widget _linkImages(Map<String, dynamic> links, double width) {
+  Widget _linkImages({Map<String, dynamic> links, double width = 120}) {
     void goTo(url) async => await launch(url);
 
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: links.entries.map((element) {
           return GestureDetector(
             onTap: () => goTo(element.value["url"]),
@@ -215,9 +266,11 @@ class _ProjectsState extends State<Projects> {
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: Column(
                   children: [
-                    Image.asset(
-                      element.value["img"],
-                      width: width,
+                    RepaintBoundary(
+                      child: Image.asset(
+                        element.value["img"],
+                        width: width,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 12),
@@ -233,38 +286,6 @@ class _ProjectsState extends State<Projects> {
                   ],
                 ),
               ),
-            ),
-          );
-        }).toList());
-  }
-
-  Widget _mobileLinkButtons(Map<String, dynamic> links) {
-    void goTo(url) async => await launch(url);
-
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: links.entries.map((element) {
-          return CustomRoundButton(
-            margin: EdgeInsets.symmetric(vertical: 4),
-            text: element.key,
-            width: 260,
-            onTap: () => goTo(element.value["url"]),
-            isActive: true,
-            fontSize: 26,
-          );
-        }).toList());
-  }
-
-  Widget _technologyImage(List<String> technologies, double width) {
-    return Wrap(
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: technologies.map((element) {
-          return Container(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child: Image.asset(
-              element,
-              width: width,
             ),
           );
         }).toList());
