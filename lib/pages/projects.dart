@@ -38,7 +38,6 @@ class _ProjectsState extends State<Projects> {
     _webData = widget.projects["web"];
     _currentWebProject = widget.projects["web"].first;
 
-    print('IM OUT');
     Future.delayed(Duration(seconds: 1), () {
       setState(() => opacity = 1);
     });
@@ -62,9 +61,7 @@ class _ProjectsState extends State<Projects> {
 
     return Container(
       padding: EdgeInsets.only(
-        left: width * 0.1,
-        right: width * 0.1,
-        top: 80,
+        top: 60,
         bottom: 32,
       ),
       width: width,
@@ -73,17 +70,15 @@ class _ProjectsState extends State<Projects> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            width: width * 0.8,
+            width: width,
             padding: EdgeInsets.only(
               top: scale == 0.1 ? 72 : 0,
               bottom: 64,
-              left: width * 0.1,
-              right: width * 0.1,
             ),
             child: Column(
               children: [
                 VisibilityDetector(
-                  key: Key('technologies-header'),
+                  key: Key('projects-header'),
                   onVisibilityChanged: (visibilityInfo) {
                     var visiblePercentage =
                         visibilityInfo.visibleFraction * 100;
@@ -101,22 +96,22 @@ class _ProjectsState extends State<Projects> {
                   ),
                 ),
                 _modeSwitch(),
-                if (!isSwitched)
-                  _carousel(data: _mobileData, isMobile: true, scale: scale)
-                else
-                  _carousel(data: _webData, isMobile: false, scale: scale),
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Text(
                     'swipe for more',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey[600],
+                      color: Colors.white,
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                )
+                ),
+                if (!isSwitched)
+                  _carousel(data: _mobileData, isMobile: true, scale: scale)
+                else
+                  _carousel(data: _webData, isMobile: false, scale: scale),
               ],
             ),
           ),
@@ -167,13 +162,7 @@ class _ProjectsState extends State<Projects> {
       padding: const EdgeInsets.only(top: 42.0),
       child: CarouselSlider(
         options: CarouselOptions(
-          height: isMobile
-              ? isMobile && scale == 0.07
-                  ? 820
-                  : 760
-              : !isMobile && scale == 0.05
-                  ? 420
-                  : null,
+          height: isMobile ? 920 : 720,
           viewportFraction: isMobile ? 0.9 : 1,
           enlargeCenterPage: false,
           enableInfiniteScroll: true,
