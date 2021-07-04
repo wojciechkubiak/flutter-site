@@ -12,12 +12,13 @@ class HomeInitial extends HomeState {}
 class HomeAbout extends HomeState {}
 
 class HomeTechnologies extends HomeState {
-  final Map<String, dynamic> technologies;
+  final List<Map<String, dynamic>> technologies;
+  final List<Map<String, dynamic>> order;
 
-  HomeTechnologies({this.technologies});
+  HomeTechnologies({this.technologies, this.order});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [technologies, order];
 }
 
 class HomeProjects extends HomeState {

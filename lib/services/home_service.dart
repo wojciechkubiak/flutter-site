@@ -1,115 +1,125 @@
 import 'dart:async';
 
-import '../config/config_service.dart';
-
-abstract class DataHomeService extends ConfigService {}
-
-class HomeService extends DataHomeService {
-  Future<Map<String, dynamic>> getProjects() async {
+class HomeService {
+  Map<String, List<Map<String, dynamic>>> getProjects() {
     return {
-      "Meditate": {
-        "img": "assets/1m.png",
-        "technologies": ['assets/flutter.png'],
-        "description":
-            'Project that supports user wellbeing through multiple exercises and by creating statistics that can be later used by user.',
-        "links": {
-          "App store": {"img": 'assets/apple.png', "url": 'https://google.com'},
-          "Google play": {
-            "img": 'assets/google.png',
-            "url": 'https://google.com',
+      "web": [
+        {
+          "title": "Obb-sys",
+          "img": "assets/2w.png",
+          "technologies": [
+            'assets/react.png',
+            'assets/node.png',
+            'assets/sql.png'
+          ],
+          "description":
+              'My engineering project for Centre of Biomedical Research. It allows user to collect data and statistics that later shows if there are any symptoms of being sick, of animal.',
+          "links": {
+            "Web repo": {
+              "img": 'assets/git.png',
+              "url": 'https://github.com/wojciechkubiak/obb-web'
+            },
+            "API repo": {
+              "img": 'assets/git.png',
+              "url": 'https://github.com/wojciechkubiak/obb-api',
+            }
+          }
+        },
+        {
+          "title": "Energe",
+          "img": "assets/1w.png",
+          "technologies": ['assets/react.png', 'assets/node.png'],
+          "description":
+              'Website for dutch renovating company created. It takes clients data, counts new usage values and sends them to the company through ZOHO CRM.',
+          "links": {
+            "Live": {
+              "img": 'assets/live.png',
+              "url": 'https://distracted-booth-ae59fb.netlify.app/'
+            },
+          }
+        },
+        {
+          "title": "Opqn-web",
+          "img": "assets/3w.png",
+          "technologies": [
+            'assets/react.png',
+            'assets/node.png',
+            'assets/sql.png'
+          ],
+          "description":
+              'Easy project that allows user to share health data with dietitians.',
+          "links": {
+            "Web repo": {
+              "img": 'assets/git.png',
+              "url": 'https://github.com/wojciechkubiak/opqn-web'
+            },
+          }
+        },
+      ],
+      "mobile": [
+        {
+          "title": "Meditate",
+          "img": "assets/1m.png",
+          "technologies": ['assets/flutter.png'],
+          "description":
+              'Project that supports user wellbeing through multiple exercises and by creating statistics that can be later used by user.',
+          "links": {
+            "App store": {
+              "img": 'assets/apple.png',
+              "url": 'https://google.com'
+            },
+            "Google play": {
+              "img": 'assets/google.png',
+              "url": 'https://google.com',
+            }
+          }
+        },
+        {
+          "title": "Opqn",
+          "img": "assets/2m.png",
+          "technologies": [
+            'assets/java.png',
+            'assets/node.png',
+            'assets/sql.png'
+          ],
+          "description":
+              'Study project that allows user to share health data with dietitians.',
+          "links": {
+            "Mobile repo": {
+              "img": 'assets/git.png',
+              "url": 'https://github.com/wojciechkubiak/opqn-mobile'
+            },
+            "API repo": {
+              "img": 'assets/git.png',
+              "url": 'https://github.com/wojciechkubiak/opqn-api',
+            }
+          }
+        },
+        {
+          "title": "Achill",
+          "img": "assets/3m.png",
+          "technologies": [
+            'assets/flutter.png',
+            'assets/node.png',
+            'assets/sql.png'
+          ],
+          "description":
+              'My own project I\'m currently working on (on hold). Application for wild animals that just cannot chill.',
+          "links": {
+            "Git repo": {
+              "img": 'assets/git.png',
+              "url": 'https://github.com/wojciechkubiak/animal_care'
+            },
           }
         }
-      },
-      "Energe": {
-        "img": "assets/1w.png",
-        "technologies": ['assets/react.png', 'assets/node.png'],
-        "description":
-            'Website for dutch renovating company created. It takes clients data, counts new usage values and sends them to the company through ZOHO CRM.',
-        "links": {
-          "Live": {
-            "img": 'assets/live.png',
-            "url": 'https://distracted-booth-ae59fb.netlify.app/'
-          },
-        }
-      },
-      "Opqn": {
-        "img": "assets/2m.png",
-        "technologies": [
-          'assets/java.png',
-          'assets/node.png',
-          'assets/sql.png'
-        ],
-        "description":
-            'Study project that allows user to share health data with dietitians.',
-        "links": {
-          "Mobile repo": {
-            "img": 'assets/git.png',
-            "url": 'https://github.com/wojciechkubiak/opqn-mobile'
-          },
-          "API repo": {
-            "img": 'assets/git.png',
-            "url": 'https://github.com/wojciechkubiak/opqn-api',
-          }
-        }
-      },
-      "Obb-Sys": {
-        "img": "assets/2w.png",
-        "technologies": [
-          'assets/react.png',
-          'assets/node.png',
-          'assets/sql.png'
-        ],
-        "description":
-            'My engineering project for Centre of Biomedical Research. It allows user to collect data and statistics that later shows if there are any symptoms of being sick, of animal.',
-        "links": {
-          "Web repo": {
-            "img": 'assets/git.png',
-            "url": 'https://github.com/wojciechkubiak/obb-web'
-          },
-          "API repo": {
-            "img": 'assets/git.png',
-            "url": 'https://github.com/wojciechkubiak/obb-api',
-          }
-        }
-      },
-      "Animacare": {
-        "img": "assets/3m.png",
-        "technologies": [
-          'assets/flutter.png',
-          'assets/node.png',
-          'assets/sql.png'
-        ],
-        "description":
-            'My own project I\'m currently working on (on hold). Application for people that love their animals and want to compare them with other users, track their data and more.',
-        "links": {
-          "Git repo": {
-            "img": 'assets/git.png',
-            "url": 'https://github.com/wojciechkubiak/animal_care'
-          },
-        }
-      },
-      "Opqn-web": {
-        "img": "assets/3w.png",
-        "technologies": [
-          'assets/react.png',
-          'assets/node.png',
-          'assets/sql.png'
-        ],
-        "description":
-            'Easy project that allows user to share health data with dietitians.',
-        "links": {
-          "Web repo": {
-            "img": 'assets/git.png',
-            "url": 'https://github.com/wojciechkubiak/opqn-web'
-          },
-        }
-      },
+      ]
     };
   }
 
-  Future<Map<String, dynamic>> getTechnologies() async {
-    return {
-      "Flutter": {
+  List<Map<String, dynamic>> getTechnologies() {
+    return [
+      {
+        "title": "Flutter",
         "icon": "assets/flutter.png",
         "background": "assets/flutter.webp",
         "description": [
@@ -120,7 +130,8 @@ class HomeService extends DataHomeService {
           "Animations"
         ]
       },
-      "ReactJS": {
+      {
+        "title": "ReactJS",
         "icon": "assets/react.png",
         "background": "assets/react.webp",
         "description": [
@@ -131,12 +142,14 @@ class HomeService extends DataHomeService {
           "Basics of Redux"
         ]
       },
-      "NodeJS": {
+      {
+        "title": "NodeJS",
         "icon": "assets/node.png",
         "background": "assets/node.webp",
         "description": ["Basics of ExpressJS", "REST API", "MVC", "Sequelize"]
       },
-      "JavaScript": {
+      {
+        "title": "JavaScript",
         "icon": "assets/javascript.png",
         "background": "assets/javascript.webp",
         "description": [
@@ -148,7 +161,8 @@ class HomeService extends DataHomeService {
           "Basics of TypeScript"
         ]
       },
-      "Python": {
+      {
+        "title": "Python",
         "icon": "assets/python.png",
         "background": "assets/python.webp",
         "description": [
@@ -157,19 +171,22 @@ class HomeService extends DataHomeService {
           "Simple web apps implementation"
         ]
       },
-      "SQL": {
+      {
+        "title": "SQL",
         "icon": "assets/sql.png",
         "background": "assets/sql.webp",
         "description": ["MySQL / PostgreSQL syntax", "Joins", "T-SQL"]
       },
-      "HTML": {
+      {
+        "title": "HTML",
         "icon": "assets/html.png",
         "background": "assets/html.webp",
         "description": [
           "Semi-advanced syntax",
         ]
       },
-      "CSS": {
+      {
+        "title": "CSS",
         "icon": "assets/css.png",
         "background": "assets/css.webp",
         "description": [
@@ -180,6 +197,29 @@ class HomeService extends DataHomeService {
           "Responsive web design"
         ]
       },
-    };
+    ];
+  }
+
+  List<Map<String, dynamic>> getOrderData() {
+    return [
+      {
+        "title": "Web",
+        "icon": "assets/web.png",
+        "description":
+            "If you need a website, you've come to the right place. I am able to make a full-fledged web application based on your preferences."
+      },
+      {
+        "title": "Mobile",
+        "icon": "assets/mobile.png",
+        "description":
+            "There is mobile application on your mind? Don't hesitate and send me a message. Creating an eye-catching mobile application is not a problem for me, which is confirmed by my current professional experience."
+      },
+      {
+        "title": "Backend/Databases",
+        "icon": "assets/cloud.png",
+        "description":
+            "Connecting your application to the database is a struggle? I can help you with both database model and communication with already created one. Handling data storage is pleasure with me."
+      }
+    ];
   }
 }

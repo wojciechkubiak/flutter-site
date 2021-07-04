@@ -52,14 +52,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Stream<HomeState> _mapAppHomeTechnologiesToState(
-      HomeTechnologiesShow event) async* {
-    Map<String, dynamic> technologies = await _homeService.getTechnologies();
+    HomeTechnologiesShow event,
+  ) async* {
+    List<Map<String, dynamic>> technologies = _homeService.getTechnologies();
+    List<Map<String, dynamic>> order = _homeService.getOrderData();
 
-    yield HomeTechnologies(technologies: technologies);
+    yield HomeTechnologies(technologies: technologies, order: order);
   }
 
   Stream<HomeState> _mapAppHomeProjectsToState(HomeProjectsShow event) async* {
-    Map<String, dynamic> projects = await _homeService.getProjects();
+    Map<String, dynamic> projects = _homeService.getProjects();
 
     yield HomeProjects(projects: projects);
   }

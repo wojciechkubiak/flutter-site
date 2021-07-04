@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Wojciech Kubiak | Dev',
           theme: ThemeData(
             primarySwatch: CustomColors().customWhite,
@@ -58,7 +59,10 @@ class _MyAppState extends State<MyApp> {
                   if (state is HomeInitial) return Landing();
                   if (state is HomeAbout) return About();
                   if (state is HomeTechnologies)
-                    return Technologies(technologies: state.technologies);
+                    return Technologies(
+                      technologies: state.technologies,
+                      order: state.order,
+                    );
                   if (state is HomeProjects)
                     return Projects(projects: state.projects);
 
